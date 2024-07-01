@@ -16,7 +16,7 @@ public class KomponenServiceController {
 
     @GetMapping
     public BaseResponse getAllKomponen(@RequestParam(value = "page", required = false, defaultValue = "0") int page, @RequestParam(value = "limit", required = false, defaultValue = "10") int limit, @RequestParam(value = "search", required = false, defaultValue = "") String search) {
-        return komponenServiceImpl.getAllKomponen();
+        return komponenServiceImpl.getAllKomponen(page, limit, search);
     }
 
     @GetMapping("/{id}")

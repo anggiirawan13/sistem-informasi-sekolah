@@ -16,7 +16,7 @@ public class PembayaranServiceController {
 
     @GetMapping
     public BaseResponse getAllPembayaran(@RequestParam(value = "page", required = false, defaultValue = "0") int page, @RequestParam(value = "limit", required = false, defaultValue = "10") int limit, @RequestParam(value = "search", required = false, defaultValue = "") String search) {
-        return pembayaranServiceImpl.getAllPembayaran();
+        return pembayaranServiceImpl.getAllPembayaran(page, limit, search);
     }
 
     @GetMapping("/{id}")
