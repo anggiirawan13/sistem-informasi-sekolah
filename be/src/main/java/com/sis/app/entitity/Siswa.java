@@ -1,5 +1,6 @@
 package com.sis.app.entitity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -14,14 +15,39 @@ public class Siswa {
     private int id;
 
     @Column(name = "id_ta")
+    @JsonProperty("id_ta")
     private int idTa;
+
+    @Column(name = "nisn")
+    @JsonProperty("nisn")
     private int nisn;
+
+    @Column(name = "nama_lengkap")
+    @JsonProperty("nama_lengkap")
     private String namaLengkap;
+
+    @Column(name = "tanggal_lahir")
+    @JsonProperty("tanggal_lahir")
     private Date tanggalLahir;
+
+    @Column(name = "alamat")
+    @JsonProperty("alamat")
     private String alamat;
+
+    @Column(name = "nama_ortu")
+    @JsonProperty("nama_ortu")
     private String namaOrtu;
+
+    @Column(name = "telp")
+    @JsonProperty("telp")
     private String telp;
+
+    @Column(name = "foto")
+    @JsonProperty("foto")
     private String foto;
+
+    @Column(name = "status")
+    @JsonProperty("status")
     private boolean status;
 
     @ManyToOne

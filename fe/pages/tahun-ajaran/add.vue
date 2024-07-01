@@ -77,7 +77,7 @@ export default {
     };
   },
   methods: {
-    doSave() {
+    async doSave() {
       this.message = "";
 
       if (this.$refs.form.validate()) {
@@ -91,7 +91,8 @@ export default {
             kurikulum: this.form.kurikulum,
           };
 
-          this.$axios.post('/tahun-ajaran', requestData).then((response) => {
+          await this.$axios.$post('/tahun-ajaran', requestData)
+          .then((response) => {
             this.$router.push({
             name: `tahun-ajaran___${this.$i18n.locale}`,
             params: {
@@ -103,7 +104,6 @@ export default {
           });
         } catch (error) {
           console.error('Error:', error);
-          this.message = 'Failed to save data. Please try again.';
         } finally {
           this.btnSaveDisable = false;
         }
