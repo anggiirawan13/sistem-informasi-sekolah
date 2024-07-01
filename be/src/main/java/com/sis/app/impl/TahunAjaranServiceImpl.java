@@ -4,8 +4,14 @@ import com.sis.app.entitity.TahunAjaran;
 import com.sis.app.repo.TahunAjaranRepo;
 import com.sis.app.service.TahunAjaranService;
 import com.sis.app.web.BaseResponse;
+import com.sis.app.web.request.TahunAjaranReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 @Service
 public class TahunAjaranServiceImpl implements TahunAjaranService {
@@ -24,8 +30,22 @@ public class TahunAjaranServiceImpl implements TahunAjaranService {
     }
 
     @Override
-    public BaseResponse saveTahunAjaran(TahunAjaran tahunAjaran) {
-        return new BaseResponse(true, "", tahunAjaranRepo.save(tahunAjaran));
+    public BaseResponse saveTahunAjaran(TahunAjaranReq req) {
+        try {
+            TahunAjaran tahunAjaran = new TahunAjaran();
+            tahunAjaran.setPeriode(req.getPeriode());
+
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            Date tglMulai = formatter.parse(req.getTglMulai());
+            tahunAjaran.setTglMulai(tglMulai);
+
+            Date tglAkhir = formatter.parse(req.getTglAkhir());
+            tahunAjaran.setTglAkhir(tglAkhir);
+            tahunAjaran.setKurikulum(req.getKurikulum());
+            return new BaseResponse(true, "", tahunAjaranRepo.save(tahunAjaran));
+        } catch (Exception e) {
+            return new BaseResponse(false, "", null);
+        }
     }
 
     @Override

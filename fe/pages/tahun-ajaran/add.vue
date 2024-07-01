@@ -90,25 +90,29 @@ export default {
             tgl_akhir: this.form.tgl_akhir,
             kurikulum: this.form.kurikulum,
           };
+          
+console.log(requestData);
 
-          await this.$axios.$post('/tahun-ajaran', requestData)
-          .then((response) => {
-            this.$router.push({
-            name: `tahun-ajaran___${this.$i18n.locale}`,
-            params: {
-              type: "error",
-              message: response.messages,
-              title: this.form.nama_lengkap,
-            },
-          });
+          await this.$axios
+          .$post("/tahun-ajaran", requestData)
+            .then((res) => {
+              if (response.success) {
+                console.log("sukses");
+              } else {
+                console.log("failed");
+              }
+          })
+          .catch((error) => {
+            console.log(error);
           });
         } catch (error) {
           console.error('Error:', error);
+          this.message = "An error occurred while saving.";
         } finally {
           this.btnSaveDisable = false;
         }
       }
-    },
+    }
   }
 };
 </script>

@@ -4,6 +4,7 @@ import com.sis.app.entitity.TahunAjaran;
 import com.sis.app.impl.TahunAjaranServiceImpl;
 import com.sis.app.service.TahunAjaranService;
 import com.sis.app.web.BaseResponse;
+import com.sis.app.web.request.TahunAjaranReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
@@ -26,8 +27,8 @@ public class TahunAjaranServiceController {
     }
 
     @PostMapping
-    public BaseResponse saveTahunAjaran(TahunAjaran tahunAjaran) {
-        return tahunAjaranServiceImpl.saveTahunAjaran(tahunAjaran);
+    public BaseResponse saveTahunAjaran(TahunAjaranReq req) {
+        return tahunAjaranServiceImpl.saveTahunAjaran(req);
     }
 
     @DeleteMapping("/{id}")
