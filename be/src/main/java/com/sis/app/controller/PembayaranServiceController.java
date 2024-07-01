@@ -2,12 +2,11 @@ package com.sis.app.controller;
 
 import com.sis.app.entitity.Pembayaran;
 import com.sis.app.impl.PembayaranServiceImpl;
-import com.sis.app.service.PembayaranService;
 import com.sis.app.web.BaseResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/pembayaran")
 public class PembayaranServiceController {
@@ -26,7 +25,7 @@ public class PembayaranServiceController {
     }
 
     @PostMapping
-    public BaseResponse savePembayaran(Pembayaran pembayaran) {
+    public BaseResponse savePembayaran(@RequestBody Pembayaran pembayaran) {
         return pembayaranServiceImpl.savePembayaran(pembayaran);
     }
 

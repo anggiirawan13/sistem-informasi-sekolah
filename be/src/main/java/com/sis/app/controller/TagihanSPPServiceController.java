@@ -2,12 +2,11 @@ package com.sis.app.controller;
 
 import com.sis.app.entitity.TagihanSPP;
 import com.sis.app.impl.TagihanSPPServiceImpl;
-import com.sis.app.service.TagihanSPPService;
 import com.sis.app.web.BaseResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/tagihan-spp")
 public class TagihanSPPServiceController {
@@ -26,7 +25,7 @@ public class TagihanSPPServiceController {
     }
 
     @PostMapping
-    public BaseResponse saveTagihanSPP(TagihanSPP tagihanSPP) {
+    public BaseResponse saveTagihanSPP(@RequestBody TagihanSPP tagihanSPP) {
         return tagihanSPPServiceImpl.saveTagihanSPP(tagihanSPP);
     }
 

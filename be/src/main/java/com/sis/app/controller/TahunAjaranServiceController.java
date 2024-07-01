@@ -1,14 +1,12 @@
 package com.sis.app.controller;
 
-import com.sis.app.entitity.TahunAjaran;
 import com.sis.app.impl.TahunAjaranServiceImpl;
-import com.sis.app.service.TahunAjaranService;
 import com.sis.app.web.BaseResponse;
 import com.sis.app.web.request.TahunAjaranReq;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/tahun-ajaran")
 public class TahunAjaranServiceController {
@@ -27,7 +25,7 @@ public class TahunAjaranServiceController {
     }
 
     @PostMapping
-    public BaseResponse saveTahunAjaran(TahunAjaranReq req) {
+    public BaseResponse saveTahunAjaran(@RequestBody TahunAjaranReq req) {
         return tahunAjaranServiceImpl.saveTahunAjaran(req);
     }
 

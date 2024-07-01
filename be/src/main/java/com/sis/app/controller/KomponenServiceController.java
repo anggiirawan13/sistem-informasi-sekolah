@@ -6,6 +6,7 @@ import com.sis.app.web.BaseResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/komponen")
 public class KomponenServiceController {
@@ -24,7 +25,7 @@ public class KomponenServiceController {
     }
 
     @PostMapping
-    public BaseResponse saveKomponen(Komponen komponen) {
+    public BaseResponse saveKomponen(@RequestBody Komponen komponen) {
         return komponenServiceImpl.saveKomponen(komponen);
     }
 

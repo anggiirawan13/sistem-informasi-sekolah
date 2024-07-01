@@ -9,39 +9,46 @@
           <v-breadcrumbs :items="breadcrumbs" class="pa-0"></v-breadcrumbs>
           <v-form ref="form">
             <v-text-field
-                name="periode"
-                label="Periode"
-                type="year"
-                :rules="rules.periode"
-                v-model="form.periode"
+              name="periode"
+              label="Periode"
+              type="text"
+              :rules="rules.periode"
+              v-model="form.periode"
             />
             <v-text-field
-                name="tgl_mulai"
-                label="Tanggal Mulai"
-                type="date"
-                :rules="rules.tgl_mulai"
-                v-model="form.tgl_mulai"
+              name="tgl_mulai"
+              label="Tanggal Mulai"
+              type="date"
+              :rules="rules.tgl_mulai"
+              v-model="form.tgl_mulai"
             />
             <v-text-field
-                name="tgl_akhir"
-                label="Tanggal Akhir"
-                type="date"
-                :rules="rules.tgl_akhir"
-                v-model="form.tgl_akhir"
+              name="tgl_akhir"
+              label="Tanggal Akhir"
+              type="date"
+              :rules="rules.tgl_akhir"
+              v-model="form.tgl_akhir"
             />
             <v-text-field
-                name="kurikulum"
-                label="Kurikulum"
-                type="text"
-                :rules="rules.kurikulum"
-                v-model="form.kurikulum"
+              name="kurikulum"
+              label="Kurikulum"
+              type="text"
+              :rules="rules.kurikulum"
+              v-model="form.kurikulum"
             />
           </v-form>
         </v-card-text>
         <v-card-actions>
           <v-btn to="/tahun-ajaran" color="secondary">Back</v-btn>
           <v-spacer />
-          <v-btn @click="doSave" color="primary" :loading="btnSaveDisable">Save</v-btn>
+          <v-btn @click="doSave" :disabled="btnSaveDisable" color="primary">
+            <template v-if="btnSaveDisable">
+              <v-progress-circular indeterminate size="24"></v-progress-circular>
+            </template>
+            <template v-else>
+              Save
+            </template>
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-col>
@@ -61,7 +68,6 @@ export default {
       ],
       btnSaveDisable: false,
       message: "",
-      status: ["Active", "Inactive"],
       form: {
         periode: "",
         tgl_mulai: "",
@@ -84,27 +90,12 @@ export default {
         this.btnSaveDisable = true;
 
         try {
-          const requestData = {
-            periode: this.form.periode,
-            tgl_mulai: this.form.tgl_mulai,
-            tgl_akhir: this.form.tgl_akhir,
-            kurikulum: this.form.kurikulum,
-          };
-          
-console.log(requestData);
-
-          await this.$axios
-          .$post("/tahun-ajaran", requestData)
-            .then((res) => {
-              if (response.success) {
-                console.log("sukses");
-              } else {
-                console.log("failed");
-              }
+          await this.$axios.post("/tahun-ajaran", this.form)
+          .then((res) => console.log("success"))
+          .catch((err) => {
+            console.log(err);
+            console.log("failed")
           })
-          .catch((error) => {
-            console.log(error);
-          });
         } catch (error) {
           console.error('Error:', error);
           this.message = "An error occurred while saving.";

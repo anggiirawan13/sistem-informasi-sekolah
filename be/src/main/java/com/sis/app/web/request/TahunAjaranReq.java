@@ -1,10 +1,7 @@
 package com.sis.app.web.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Column;
 import lombok.Data;
-
-import java.util.Date;
 
 @Data
 public class TahunAjaranReq {
