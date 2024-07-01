@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class BaseResponse {
 
     private boolean success;
-    private String message;
+    private String messages;
     private Object data;
 
 }
