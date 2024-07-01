@@ -74,15 +74,7 @@ export default {
         tgl_akhir: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Tanggal Akhir" })],
         kurikulum: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Kurikulum" })],
       },
-      selectedMataKuliah: null,
-      nilai: "",
-      mataKuliahNilai: [],
-      mataKuliahOptions: [],
-      editedItem: null,
     };
-  },
-  created() {
-    this.getMataKuliahOptions();
   },
   methods: {
     doSave() {
@@ -117,68 +109,6 @@ export default {
         }
       }
     },
-    addMataKuliahNilai() {
-      if (this.selectedMataKuliah && this.nilai) {
-
-        if (this.editedItem) {
-          const selectedNamaMataKuliah = this.mataKuliahOptions.find(
-              option => option.id === this.selectedMataKuliah.id
-          ).nama;
-          this.editedItem.mata_kuliah = selectedNamaMataKuliah;
-          this.editedItem.nilai = this.nilai;
-          this.editedItem = null;
-        } else {
-          const selectedNamaMataKuliah = this.mataKuliahOptions.find(
-              option => option.id === this.selectedMataKuliah
-          ).nama;
-          this.mataKuliahNilai.push({
-            mata_kuliah: selectedNamaMataKuliah,
-            nilai: this.nilai,
-          });
-        }
-
-        this.resetInputFields();
-      }
-    },
-    editMataKuliahNilai(item) {
-      this.editedItem = item;
-
-      this.selectedMataKuliah = this.mataKuliahOptions.find(
-          mk => mk.nama === item.mata_kuliah
-      );
-
-      this.nilai = item.nilai;
-    },
-    deleteMataKuliahNilai(item) {
-      const index = this.mataKuliahNilai.indexOf(item);
-      if (index !== -1) {
-        this.mataKuliahNilai.splice(index, 1);
-      }
-    },
-    resetForm() {
-      this.form.nisn = "";
-      this.form.nama_lengkap = "";
-      this.mataKuliahNilai = [];
-    },
-    resetInputFields() {
-      this.selectedMataKuliah = null;
-      this.nilai = "";
-    },
-    async getMataKuliahOptions() {
-      try {
-        const response = await this.$axios.get('/tahun-ajaran');
-        if (response.data.success) {
-          this.mataKuliahOptions = response.data.data.map(matkul => ({
-            id: matkul.id,
-            nama: matkul.nama_mata_kuliah,
-          }));
-        } else {
-          console.error('Failed to fetch mata kuliah:', response.data.message);
-        }
-      } catch (error) {
-        console.error('Error fetching mata kuliah:', error);
-      }
-    },
-  },
+  }
 };
 </script>

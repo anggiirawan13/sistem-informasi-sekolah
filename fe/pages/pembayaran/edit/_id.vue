@@ -92,7 +92,7 @@
 <script>
 export default {
   head: {
-    title: "Ubah Pembayaran",
+    title: "Edit Pembayaran",
   },
   async asyncData({ params }) {
     return {
@@ -103,7 +103,7 @@ export default {
     return {
       breadcrumbs: [
         { text: "Pembayaran", to: "/pembayaran", disabled: false, exact: true },
-        { text: "Ubah", disabled: true },
+        { text: "Edit", disabled: true },
       ],
       btnSaveDisable: false,
       message: "",

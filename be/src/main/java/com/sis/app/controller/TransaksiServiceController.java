@@ -6,13 +6,11 @@ import com.sis.app.service.TransaksiService;
 import com.sis.app.web.BaseResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
-@Service
-public class TransaksiServiceController implements TransaksiService {
+@RestController
+@RequestMapping("/transaksi")
+public class TransaksiServiceController {
 
     @Autowired
     private TransaksiServiceImpl transaksiServiceImpl;
