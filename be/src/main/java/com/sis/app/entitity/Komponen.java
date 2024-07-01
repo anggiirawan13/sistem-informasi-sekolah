@@ -1,5 +1,7 @@
 package com.sis.app.entitity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -41,8 +43,10 @@ public class Komponen {
 
     @ManyToOne
     @JoinColumn(name = "id_ta", insertable = false, updatable = false)
+    @JsonBackReference
     private TahunAjaran tahunAjaran;
 
     @OneToMany(mappedBy = "komponen")
+    @JsonManagedReference
     private List<TagihanLain> tagihanLainList;
 }

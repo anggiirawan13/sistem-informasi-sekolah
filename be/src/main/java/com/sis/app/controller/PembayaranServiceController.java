@@ -15,7 +15,7 @@ public class PembayaranServiceController {
     private PembayaranServiceImpl pembayaranServiceImpl;
 
     @GetMapping
-    public BaseResponse getAllPembayaran() {
+    public BaseResponse getAllPembayaran(@RequestParam(value = "page", required = false, defaultValue = "0") int page, @RequestParam(value = "limit", required = false, defaultValue = "10") int limit, @RequestParam(value = "search", required = false, defaultValue = "") String search) {
         return pembayaranServiceImpl.getAllPembayaran();
     }
 

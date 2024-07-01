@@ -5,6 +5,7 @@ import com.sis.app.impl.SiswaServiceImpl;
 import com.sis.app.web.BaseResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @CrossOrigin
 @RestController
@@ -15,7 +16,7 @@ public class SiswaServiceController {
     private SiswaServiceImpl siswaServiceImpl;
 
     @GetMapping
-    public BaseResponse getAllSiswa() {
+    public BaseResponse getAllSiswa(@RequestParam(value = "page", required = false, defaultValue = "0") int page, @RequestParam(value = "limit", required = false, defaultValue = "10") int limit, @RequestParam(value = "search", required = false, defaultValue = "") String search) {
         return siswaServiceImpl.getAllSiswa();
     }
 
@@ -25,13 +26,13 @@ public class SiswaServiceController {
     }
 
     @PostMapping
-    public BaseResponse saveSiswa(@RequestBody Siswa siswa) {
-        return siswaServiceImpl.saveSiswa(siswa);
+    public BaseResponse saveSiswa(@RequestPart("siswa") Siswa siswa, @RequestPart("foto") MultipartFile foto) {
+        return siswaServiceImpl.saveSiswa(siswa, foto);
     }
 
     @PutMapping
-    public BaseResponse updateSiswa(@RequestBody Siswa siswa) {
-        return siswaServiceImpl.updateSiswa(siswa);
+    public BaseResponse updateSiswa(@RequestPart("siswa") Siswa siswa, @RequestPart("foto") MultipartFile foto) {
+        return siswaServiceImpl.updateSiswa(siswa, foto);
     }
 
     @DeleteMapping("/{id}")

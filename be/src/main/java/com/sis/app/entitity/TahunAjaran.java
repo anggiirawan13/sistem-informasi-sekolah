@@ -1,5 +1,6 @@
 package com.sis.app.entitity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -33,17 +34,22 @@ public class TahunAjaran {
     private String kurikulum;
 
     @OneToMany(mappedBy = "tahunAjaran")
+    @JsonManagedReference
     private List<Siswa> siswa;
 
     @OneToMany(mappedBy = "tahunAjaran")
+    @JsonManagedReference
     private List<Komponen> komponen;
 
     @OneToMany(mappedBy = "tahunAjaran")
+    @JsonManagedReference
     private List<Transaksi> transaksi;
 
     @OneToMany(mappedBy = "tahunAjaran")
+    @JsonManagedReference
     private List<TagihanSPP> tagihanSPP;
 
     @OneToMany(mappedBy = "tahunAjaran")
+    @JsonManagedReference
     private List<TagihanLain> tagihanLain;
 }

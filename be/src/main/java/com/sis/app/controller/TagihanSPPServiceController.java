@@ -15,7 +15,7 @@ public class TagihanSPPServiceController {
     private TagihanSPPServiceImpl tagihanSPPServiceImpl;
 
     @GetMapping
-    public BaseResponse getAllTagihanSPP() {
+    public BaseResponse getAllTagihanSPP(@RequestParam(value = "page", required = false, defaultValue = "0") int page, @RequestParam(value = "limit", required = false, defaultValue = "10") int limit, @RequestParam(value = "search", required = false, defaultValue = "") String search) {
         return tagihanSPPServiceImpl.getAllTagihanSPP();
     }
 

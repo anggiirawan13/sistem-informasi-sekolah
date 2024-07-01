@@ -15,7 +15,7 @@ public class TagihanLainServiceController {
     private TagihanLainServiceImpl tagihanLainServiceImpl;
 
     @GetMapping
-    public BaseResponse getAllTagihanLain() {
+    public BaseResponse getAllTagihanLain(@RequestParam(value = "page", required = false, defaultValue = "0") int page, @RequestParam(value = "limit", required = false, defaultValue = "10") int limit, @RequestParam(value = "search", required = false, defaultValue = "") String search) {
         return tagihanLainServiceImpl.getAllTagihanLain();
     }
 

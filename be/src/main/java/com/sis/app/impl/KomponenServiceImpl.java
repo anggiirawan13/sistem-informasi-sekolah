@@ -1,11 +1,18 @@
 package com.sis.app.impl;
 
 import com.sis.app.entitity.Komponen;
+import com.sis.app.entitity.Komponen;
 import com.sis.app.repo.KomponenRepo;
 import com.sis.app.service.KomponenService;
 import com.sis.app.web.BaseResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class KomponenServiceImpl implements KomponenService {
@@ -14,8 +21,23 @@ public class KomponenServiceImpl implements KomponenService {
     private KomponenRepo komponenRepo;
 
     @Override
-    public BaseResponse getAllKomponen() {
-        return new BaseResponse(true, "", komponenRepo.findAll());
+    public BaseResponse getAllKomponen(int page, int limit, String search) {
+        List<Komponen> komponen = new ArrayList<>();
+        HashMap<String, Object> addEntity = new HashMap<>();
+        if (page < 0 || limit < 0) {
+            komponen = komponenRepo.findAll();
+        } else {
+            Pageable pageable = Pageable.ofSize(limit).withPage(page);
+            Page<Komponen> komponenPage = komponenRepo.findAll(pageable);
+            komponen = komponenPage.toList();
+
+            addEntity.put("totalPage", komponenPage.getTotalPages());
+            addEntity.put("totalData", komponenPage.getTotalElements());
+            addEntity.put("numberOfData", komponenPage.getNumberOfElements());
+            addEntity.put("number", komponenPage.getNumber());
+        }
+
+        return new BaseResponse(true, "", komponen, addEntity);
     }
 
     @Override

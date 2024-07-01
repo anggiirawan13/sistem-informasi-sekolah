@@ -1,5 +1,6 @@
 package com.sis.app.entitity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -41,13 +42,16 @@ public class TagihanSPP {
 
     @ManyToOne
     @JoinColumn(name = "id_transaksi", insertable = false, updatable = false)
+    @JsonBackReference
     private Transaksi transaksi;
 
     @ManyToOne
     @JoinColumn(name = "id_siswa", insertable = false, updatable = false)
+    @JsonBackReference
     private Siswa siswa;
 
     @ManyToOne
     @JoinColumn(name = "id_ta", insertable = false, updatable = false)
+    @JsonBackReference
     private TahunAjaran tahunAjaran;
 }

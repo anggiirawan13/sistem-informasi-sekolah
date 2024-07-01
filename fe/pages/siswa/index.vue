@@ -90,8 +90,9 @@ export default {
       itemDelete: "",
       headers: [
         { text: "No.", value: "number", sortable: false },
-        { text: "NIM", value: "nim", sortable: false },
-        { text: "Nama Siswa", value: "nama_siswa", sortable: false },
+        { text: "NISN", value: "nisn", sortable: false },
+        { text: "Nama Lengkap", value: "nama_lengkap", sortable: false },
+        { text: "Status", value: "status", sortable: false },
         { text: "Actions", value: "actions", sortable: false },
       ],
       breadcrumbs: [
