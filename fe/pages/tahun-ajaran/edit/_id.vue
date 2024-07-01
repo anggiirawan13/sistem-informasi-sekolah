@@ -74,7 +74,7 @@ export default {
       btnSaveDisable: false,
       message: "",
       form: {
-        id: this.id,
+        id: 0,
         periode: "",
         tgl_mulai: "",
         tgl_akhir: "",
@@ -96,13 +96,14 @@ export default {
         this.btnSaveDisable = true;
 
         try {
+          this.form.id = this.id
           this.$axios.$put(`/tahun-ajaran`, this.form)
               .then((res) => {
                 this.$router.push({
                   name: `tahun-ajaran___${this.$i18n.locale}`,
                   params: {
                     type: "success",
-                    message: "ADD_SUCCESS",
+                    message: "UPDATE_SUCCESS",
                     title: this.form.kurikulum,
                   },
                 });
@@ -112,7 +113,7 @@ export default {
                   name: `tahun-ajaran___${this.$i18n.locale}`,
                   params: {
                     type: "error",
-                    message: "ADD_FAILED",
+                    message: "UPDATE_FAILED",
                     title: this.form.kurikulum,
                   },
                 });
