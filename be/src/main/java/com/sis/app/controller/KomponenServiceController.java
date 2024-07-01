@@ -29,7 +29,7 @@ public class KomponenServiceController {
         return komponenServiceImpl.saveKomponen(komponen);
     }
 
-    @PostMapping
+    @PutMapping
     public BaseResponse updateKomponen(@RequestBody Komponen komponen) {
         return komponenServiceImpl.updateKomponen(komponen);
     }
