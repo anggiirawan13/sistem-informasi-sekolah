@@ -15,8 +15,8 @@ public class TransaksiServiceController {
     private TransaksiServiceImpl transaksiServiceImpl;
 
     @GetMapping
-    public BaseResponse getAllTransaksi() {
-        return transaksiServiceImpl.getAllTransaksi();
+    public BaseResponse getAllTransaksi(@RequestParam(value = "page", required = false, defaultValue = "0") int page, @RequestParam(value = "limit", required = false, defaultValue = "0") int limit, @RequestParam(value = "search", required = false, defaultValue = "") String search) {
+        return transaksiServiceImpl.getAllTransaksi(page, limit, search);
     }
 
     @GetMapping("/{id}")

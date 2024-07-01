@@ -126,7 +126,7 @@
 <script>
 export default {
   head: {
-    title: "Ubah Siswa",
+    title: "Edit Siswa",
   },
   async asyncData({ params }) {
     return {
@@ -137,7 +137,7 @@ export default {
     return {
       breadcrumbs: [
         { text: "Siswa", to: "/komponen", disabled: false, exact: true },
-        { text: "Ubah", disabled: true },
+        { text: "Edit", disabled: true },
       ],
       btnSaveDisable: false,
       message: "",

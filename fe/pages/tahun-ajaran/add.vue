@@ -83,18 +83,33 @@ export default {
     };
   },
   methods: {
-    async doSave() {
+    doSave() {
       this.message = "";
 
       if (this.$refs.form.validate()) {
         this.btnSaveDisable = true;
 
         try {
-          await this.$axios.post("/tahun-ajaran", this.form)
-          .then((res) => console.log("success"))
+          this.$axios.post("/tahun-ajaran", this.form)
+          .then((res) => {
+            this.$router.push({
+              name: `tahun-ajaran___${this.$i18n.locale}`,
+              params: {
+                type: "success",
+                message: "ADD_SUCCESS",
+                title: this.form.kurikulum,
+              },
+            });
+          })
           .catch((err) => {
-            console.log(err);
-            console.log("failed")
+            this.$router.push({
+              name: `tahun-ajaran___${this.$i18n.locale}`,
+              params: {
+                type: "error",
+                message: "ADD_FAILED",
+                title: this.form.kurikulum,
+              },
+            });
           })
         } catch (error) {
           console.error('Error:', error);

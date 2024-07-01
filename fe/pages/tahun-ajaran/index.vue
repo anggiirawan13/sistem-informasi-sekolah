@@ -91,7 +91,6 @@ export default {
       headers: [
         { text: "No.", value: "number", sortable: false },
         { text: "Periode", value: "periode", sortable: false },
-        { text: "Tahun Ajaran", value: "tahun_ajaran", sortable: false },
         { text: "Tanggal Mulai", value: "tgl_mulai", sortable: false },
         { text: "Tanggal Akhir", value: "tgl_akhir", sortable: false },
         { text: "Kurikulum", value: "kurikulum", sortable: false },
@@ -112,11 +111,11 @@ export default {
       const { page, itemsPerPage } = this.options;
 
       this.$axios
-        .$get(`tahun-ajaran?page=${page - 1}&limit=${itemsPerPage}&search=${this.search}`)
+        .$get(`/tahun-ajaran?page=${page - 1}&limit=${itemsPerPage}&search=${this.search}`)
         .then((response) => {
           this.tahun_ajaran = [];
           this.totalData = 0;
-
+          console.log(response);
           if (response.success) {
             this.tahun_ajaran = response.data;
             this.totalData = response.additionalEntity.totalData;

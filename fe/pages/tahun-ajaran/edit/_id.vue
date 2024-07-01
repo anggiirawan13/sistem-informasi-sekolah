@@ -45,53 +45,6 @@
         </v-card-actions>
       </v-card>
     </v-col>
-
-    <!-- Input Mata Kuliah & Nilai -->
-    <v-col cols="10" offset="1">
-      <v-card class="mb-2">
-        <v-toolbar color="primary" dark>MATA KULIAH & NILAI</v-toolbar>
-        <v-card-text>
-          <v-container>
-            <v-row>
-              <v-col cols="4">
-                <v-select
-                    v-model="selectedMataKuliah"
-                    :items="mataKuliahOptions"
-                    item-text="nama"
-                    item-value="id"
-                    label="Mata Kuliah"
-                ></v-select>
-              </v-col>
-              <v-col cols="4">
-                <v-text-field v-model="nilai" label="Nilai"></v-text-field>
-              </v-col>
-              <v-col cols="4">
-                <v-btn @click="addMataKuliahNilai" color="primary">Tambah</v-btn>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-card-text>
-      </v-card>
-    </v-col>
-
-    <!-- Tabel Mata Kuliah & Nilai -->
-    <v-col cols="10" offset="1">
-      <v-card>
-        <v-card-text>
-          <v-data-table
-              :headers="tableHeaders"
-              :items="mataKuliahNilai"
-              :items-per-page="5"
-              class="elevation-1"
-          >
-            <template v-slot:item.actions="{ item }">
-              <v-icon small @click="editMataKuliahNilai(item)">mdi-pencil</v-icon>
-              <v-icon small @click="deleteMataKuliahNilai(item)">mdi-delete</v-icon>
-            </template>
-          </v-data-table>
-        </v-card-text>
-      </v-card>
-    </v-col>
   </v-row>
 </template>
 
@@ -161,7 +114,7 @@ export default {
           const response = await this.$axios.put(`/tahun-ajaran/${this.id}`, requestData);
 
           this.$router.push({
-            name: `tahun_ajaran___${this.$i18n.locale}`,
+            name: `tahun-ajaran___${this.$i18n.locale}`,
             params: {
               type: "success",
               message: "UPDATE_SUCCESS",
