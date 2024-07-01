@@ -49,19 +49,9 @@ public class TahunAjaranServiceImpl implements TahunAjaranService {
     }
 
     @Override
-    public BaseResponse saveTahunAjaran(TahunAjaranReq req) {
+    public BaseResponse saveTahunAjaran(TahunAjaran req) {
         try {
-            TahunAjaran tahunAjaran = new TahunAjaran();
-            tahunAjaran.setPeriode(req.getPeriode());
-
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            Date tglMulai = formatter.parse(req.getTglMulai());
-            tahunAjaran.setTglMulai(tglMulai);
-
-            Date tglAkhir = formatter.parse(req.getTglAkhir());
-            tahunAjaran.setTglAkhir(tglAkhir);
-            tahunAjaran.setKurikulum(req.getKurikulum());
-            return new BaseResponse(true, "", tahunAjaranRepo.save(tahunAjaran));
+            return new BaseResponse(true, "", tahunAjaranRepo.save(req));
         } catch (Exception e) {
             return new BaseResponse(false, "", null);
         }
