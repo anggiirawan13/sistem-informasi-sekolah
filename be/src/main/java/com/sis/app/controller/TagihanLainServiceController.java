@@ -29,7 +29,7 @@ public class TagihanLainServiceController {
         return tagihanLainServiceImpl.saveTagihanLain(tagihanLain);
     }
 
-    @PostMapping
+    @PutMapping
     public BaseResponse updateTagihanLain(@RequestBody TagihanLain tagihanLain) {
         return tagihanLainServiceImpl.updateTagihanLain(tagihanLain);
     }
