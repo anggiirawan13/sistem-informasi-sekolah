@@ -52,11 +52,6 @@ public class Siswa {
     @JsonProperty("status")
     private boolean status;
 
-    @ManyToOne
-    @JoinColumn(name = "id_ta", insertable = false, updatable = false)
-    @JsonBackReference
-    private TahunAjaran tahunAjaran;
-
     @OneToMany(mappedBy = "siswa")
     private List<Transaksi> transaksiList;
 }

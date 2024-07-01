@@ -90,8 +90,9 @@ export default {
       itemDelete: "",
       headers: [
         { text: "No.", value: "number", sortable: false },
-        { text: "NIM", value: "nim", sortable: false },
-        { text: "Nama Pembayaran", value: "nama_pembayaran", sortable: false },
+        { text: "Tanggal Pembayaran", value: "tgl_pembayaran", sortable: false },
+        { text: "Jumlah Bayar", value: "jumlah_bayar", sortable: false },
+        { text: "Metode Bayar", value: "metode_bayar", sortable: false },
         { text: "Actions", value: "actions", sortable: false },
       ],
       breadcrumbs: [

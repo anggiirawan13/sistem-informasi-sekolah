@@ -126,7 +126,7 @@ export default {
         }
       }
     },
-getData() {
+  getData() {
       try {
         this.$axios.$get(`/tahun-ajaran/${this.id}`)
             .then((res) => {

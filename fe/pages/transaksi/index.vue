@@ -3,7 +3,7 @@
     <v-col cols="10" offset="1">
       <v-card class="my-3">
         <v-toolbar color="primary" dark>
-          Transakasi
+          transaksi
           <v-spacer></v-spacer>
           <v-text-field
             v-model="search"
@@ -18,14 +18,14 @@
           <div class="d-flex mb-4">
             <v-breadcrumbs :items="breadcrumbs" class="pa-0" />
             <v-spacer></v-spacer>
-            <v-btn to="/transakasi/add" color="primary" elevation="3" small
+            <v-btn to="/transaksi/add" color="primary" elevation="3" small
               >Tambah <v-icon right>mdi-plus-circle</v-icon></v-btn
             >
           </div>
 
           <v-data-table
             :isLoading="isLoading"
-            :items="transakasi"
+            :items="transaksi"
             :headers="headers"
             :items-per-page="10"
             :server-items-length="totalData"
@@ -40,7 +40,7 @@
                 <v-card>
                   <v-card-title
                     >Kamu yakin ingin menghapus data
-                    {{ itemDelete.nama_transakasi }}?</v-card-title
+                    {{ itemDelete.nama_transaksi }}?</v-card-title
                   >
                   <v-card-actions>
                     <v-spacer></v-spacer>
@@ -58,7 +58,7 @@
               </v-dialog>
             </template>
             <template v-slot:item.actions="{ item }">
-              <v-btn :to="`/transakasi/edit/${item.id}`" icon
+              <v-btn :to="`/transaksi/edit/${item.id}`" icon
                 ><v-icon small>mdi-pencil</v-icon></v-btn
               >
               <v-btn small icon @click="deleteItem(item)"
@@ -75,11 +75,11 @@
 <script>
 export default {
   head: {
-    title: "Transakasi",
+    title: "transaksi",
   },
   data() {
     return {
-      transakasi: [],
+      transaksi: [],
       options: {},
       totalData: 0,
       search: "",
@@ -88,39 +88,40 @@ export default {
       alertType: "",
       dialogDelete: false,
       itemDelete: "",
+      status: ["Berhasil", "Pending", "Gagal"],
       headers: [
         { text: "No.", value: "number", sortable: false },
-        { text: "NIM", value: "nim", sortable: false },
-        { text: "Nama Transakasi", value: "nama_transakasi", sortable: false },
+        { text: "Kode Transaksi", value: "kode_transaksi", sortable: false },
+        { text: "Status", value: "status", sortable: false },
         { text: "Actions", value: "actions", sortable: false },
       ],
       breadcrumbs: [
         {
           text: "",
           disabled: true,
-          to: "/transakasi",
+          to: "/transaksi",
         },
       ],
     };
   },
   methods: {
-    getTransakasi() {
+    gettransaksi() {
       this.isLoading = true;
       const { page, itemsPerPage } = this.options;
 
       this.$axios
-        .$get(`/transakasi?page=${page - 1}&limit=${itemsPerPage}&search=${this.search}`)
+        .$get(`/transaksi?page=${page - 1}&limit=${itemsPerPage}&search=${this.search}`)
         .then((response) => {
-          this.transakasi = [];
+          this.transaksi = [];
           this.totalData = 0;
 
           if (response.success) {
-            this.transakasi = response.data;
+            this.transaksi = response.data;
             this.totalData = response.additionalEntity.totalData;
 
             let i = response.additionalEntity.number * itemsPerPage + 1;
             i = isNaN(i) ? 1 : i;
-            this.transakasi.map((item) => (item.number = i++));
+            this.transaksi.map((item) => (item.number = i++));
           }
         })
         .catch((error) => {
@@ -132,12 +133,12 @@ export default {
     },
     confirmDelete(id) {
       this.$axios
-        .$delete(`/transakasi/${id}`)
+        .$delete(`/transaksi/${id}`)
         .then(async () => {
-          await this.getTransakasi();
+          await this.gettransaksi();
           this.alertType = "success";
           this.message = this.$t("DELETE_SUCCESS", {
-            title: this.itemDelete.nama_transakasi,
+            title: this.itemDelete.nama_transaksi,
           });
         })
         .catch((error) => {
@@ -158,13 +159,13 @@ export default {
   watch: {
     options: {
       handler() {
-        this.getTransakasi();
+        this.gettransaksi();
       },
       deep: true,
     },
     search: {
       handler() {
-        this.getTransakasi();
+        this.gettransaksi();
       },
     },
   },
@@ -172,7 +173,7 @@ export default {
     if (this.$route.params.message) {
       this.alertType = this.$route.params.type;
       this.message = this.$t(this.$route.params.message, {
-        title: this.$route.params.nama_transakasi,
+        title: this.$route.params.nama_transaksi,
       });
     }
   },

@@ -110,15 +110,6 @@ export default {
       },
     };
   },
-  computed: {
-    tableHeaders() {
-      return [
-        { text: "Mata Kuliah", value: "mata_kuliah" },
-        { text: "Nilai", value: "nilai" },
-        { text: "Actions", value: "actions", sortable: false },
-      ];
-    },
-  },
   methods: {
     doSave() {
       this.message = "";

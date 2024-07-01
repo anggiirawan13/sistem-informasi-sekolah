@@ -34,22 +34,17 @@ public class TahunAjaran {
     private String kurikulum;
 
     @OneToMany(mappedBy = "tahunAjaran")
-    @JsonManagedReference
     private List<Siswa> siswa;
 
     @OneToMany(mappedBy = "tahunAjaran")
-    @JsonManagedReference
     private List<Komponen> komponen;
 
     @OneToMany(mappedBy = "tahunAjaran")
-    @JsonManagedReference
     private List<Transaksi> transaksi;
 
     @OneToMany(mappedBy = "tahunAjaran")
-    @JsonManagedReference
     private List<TagihanSPP> tagihanSPP;
 
     @OneToMany(mappedBy = "tahunAjaran")
-    @JsonManagedReference
     private List<TagihanLain> tagihanLain;
 }

@@ -57,6 +57,9 @@
                 </v-card>
               </v-dialog>
             </template>
+            <template v-slot:item.status="{ item }">
+              <span>{{ item.status ? "Active" : "Inactive" }}</span>
+            </template>
             <template v-slot:item.actions="{ item }">
               <v-btn :to="`/siswa/edit/${item.id}`" icon
                 ><v-icon small>mdi-pencil</v-icon></v-btn

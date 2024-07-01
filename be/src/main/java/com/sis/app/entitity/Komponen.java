@@ -41,12 +41,6 @@ public class Komponen {
     @JsonProperty("tgl_dibuat")
     private LocalDate tglDibuat;
 
-    @ManyToOne
-    @JoinColumn(name = "id_ta", insertable = false, updatable = false)
-    @JsonBackReference
-    private TahunAjaran tahunAjaran;
-
     @OneToMany(mappedBy = "komponen")
-    @JsonManagedReference
     private List<TagihanLain> tagihanLainList;
 }
