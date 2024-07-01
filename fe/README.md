@@ -12,7 +12,7 @@
 
 ## Setup
 - Open the `fe` folder in your text editor.
-- Rename the `sample.env` file to `.env`.
+- Rename the `env.sample` file to `.env`.
 
 ## Build Setup
 
