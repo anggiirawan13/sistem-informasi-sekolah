@@ -20,7 +20,7 @@ public class TransaksiServiceController {
     }
 
     @GetMapping("/{id}")
-    public BaseResponse getTransaksiById(@PathVariable("id") int id) {
+    public BaseResponse getTransaksiById(@PathVariable("id") String id) {
         return transaksiServiceImpl.getTransaksiById(id);
     }
 
@@ -30,7 +30,7 @@ public class TransaksiServiceController {
     }
 
     @DeleteMapping("/{id}")
-    public BaseResponse deleteTransaksi(@PathVariable("id") int id) {
+    public BaseResponse deleteTransaksi(@PathVariable("id") String id) {
         return transaksiServiceImpl.deleteTransaksi(id);
     }
 }

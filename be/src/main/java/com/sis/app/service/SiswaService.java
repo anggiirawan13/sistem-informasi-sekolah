@@ -5,7 +5,7 @@ import com.sis.app.web.BaseResponse;
 
 public interface SiswaService {
     BaseResponse getAllSiswa();
-    BaseResponse getSiswaById(int id);
+    BaseResponse getSiswaById(String id);
     BaseResponse saveSiswa(Siswa siswa);
-    BaseResponse deleteSiswa(int id);
+    BaseResponse deleteSiswa(String id);
 }

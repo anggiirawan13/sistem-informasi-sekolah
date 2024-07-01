@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class Transaksi {
 
     @Column(name = "tgl_pembayaran")
     @JsonProperty("tgl_pembayaran")
-    private Date tglPembayaran;
+    private LocalDate tglPembayaran;
 
     @Column(name = "status")
     @JsonProperty("status")

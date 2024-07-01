@@ -20,7 +20,7 @@ public class PembayaranServiceController {
     }
 
     @GetMapping("/{id}")
-    public BaseResponse getPembayaranById(@PathVariable("id") int id) {
+    public BaseResponse getPembayaranById(@PathVariable("id") String id) {
         return pembayaranServiceImpl.getPembayaranById(id);
     }
 
@@ -30,7 +30,7 @@ public class PembayaranServiceController {
     }
 
     @DeleteMapping("/{id}")
-    public BaseResponse deletePembayaran(@PathVariable("id") int id) {
+    public BaseResponse deletePembayaran(@PathVariable("id") String id) {
         return pembayaranServiceImpl.deletePembayaran(id);
     }
 }

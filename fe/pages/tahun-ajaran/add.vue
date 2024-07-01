@@ -90,7 +90,7 @@ export default {
         this.btnSaveDisable = true;
 
         try {
-          this.$axios.post("/tahun-ajaran", this.form)
+          this.$axios.$post("/tahun-ajaran", this.form)
           .then((res) => {
             this.$router.push({
               name: `tahun-ajaran___${this.$i18n.locale}`,

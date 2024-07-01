@@ -5,7 +5,7 @@ import com.sis.app.web.BaseResponse;
 
 public interface TagihanLainService {
     BaseResponse getAllTagihanLain();
-    BaseResponse getTagihanLainById(int id);
+    BaseResponse getTagihanLainById(String id);
     BaseResponse saveTagihanLain(TagihanLain tagihanLain);
-    BaseResponse deleteTagihanLain(int id);
+    BaseResponse deleteTagihanLain(String id);
 }

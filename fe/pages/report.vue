@@ -16,7 +16,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="(siswa, index) in siswaList" :key="siswa.uuid">
+            <tr v-for="(siswa, index) in siswaList" :key="siswa.id">
               <td>{{ index + 1 }}</td>
               <td>{{ siswa.nim }}</td>
               <td>{{ siswa.nama_siswa }}</td>

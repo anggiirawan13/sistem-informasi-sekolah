@@ -50,7 +50,7 @@
                     <v-btn
                       color="error"
                       text
-                      @click="confirmDelete(itemDelete.uuid)"
+                      @click="confirmDelete(itemDelete.id)"
                       >Delete</v-btn
                     >
                   </v-card-actions>
@@ -58,7 +58,7 @@
               </v-dialog>
             </template>
             <template v-slot:item.actions="{ item }">
-              <v-btn :to="`/transakasi/edit/${item.uuid}`" icon
+              <v-btn :to="`/transakasi/edit/${item.id}`" icon
                 ><v-icon small>mdi-pencil</v-icon></v-btn
               >
               <v-btn small icon @click="deleteItem(item)"

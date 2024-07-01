@@ -19,8 +19,8 @@ public class SiswaServiceImpl implements SiswaService {
     }
 
     @Override
-    public BaseResponse getSiswaById(int id) {
-        return new BaseResponse(true, "", siswaRepo.findById(id).orElse(null));
+    public BaseResponse getSiswaById(String id) {
+        return new BaseResponse(true, "", siswaRepo.findById(Integer.valueOf(id)).orElse(null));
     }
 
     @Override
@@ -29,8 +29,8 @@ public class SiswaServiceImpl implements SiswaService {
     }
 
     @Override
-    public BaseResponse deleteSiswa(int id) {
-        siswaRepo.deleteById(id);
+    public BaseResponse deleteSiswa(String id) {
+        siswaRepo.deleteById(Integer.valueOf(id));
         return new BaseResponse(true, "", null);
     }
 }

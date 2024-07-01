@@ -11,7 +11,7 @@
             <v-text-field
                 name="periode"
                 label="Periode"
-                type="year"
+                type="text"
                 :rules="rules.periode"
                 v-model="form.periode"
             />
@@ -41,171 +41,101 @@
         <v-card-actions>
           <v-btn to="/tahun-ajaran" color="secondary">Back</v-btn>
           <v-spacer />
-          <v-btn @click="doSave" color="primary" :loading="btnSaveDisable">Save</v-btn>
+          <v-btn @click="doSave" :disabled="btnSaveDisable" color="primary">
+            <template v-if="btnSaveDisable">
+              <v-progress-circular indeterminate size="24"></v-progress-circular>
+            </template>
+            <template v-else>
+              Save
+            </template>
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-col>
   </v-row>
 </template>
 
-
 <script>
 export default {
   head: {
-    title: "Edit Tahun Ajaran",
-  },
-  async asyncData({ params }) {
-    return {
-      id: params.id,
-    };
+    title: "Ubah Tahun Ajaran",
   },
   data() {
     return {
       breadcrumbs: [
         { text: "Tahun Ajaran", to: "/tahun-ajaran", disabled: false, exact: true },
-        { text: "Edit", disabled: true },
+        { text: "Tambah", disabled: true },
       ],
       btnSaveDisable: false,
       message: "",
       form: {
-        nim: "",
-        tahun_ajaran: "",
+        periode: "",
+        tgl_mulai: "",
+        tgl_akhir: "",
+        kurikulum: "",
       },
       rules: {
-        nim: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "NIM" })],
-        tahun_ajaran: [
-          (v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Nama Tahun Ajaran" }),
-        ],
+        periode: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Periode" })],
+        tgl_mulai: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Tanggal Mulai" })],
+        tgl_akhir: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Tanggal Akhir" })],
+        kurikulum: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Kurikulum" })],
       },
-      selectedMataKuliah: null,
-      nilai: "",
-      mataKuliahNilai: [],
-      mataKuliahOptions: [], // Will be populated from API
-      editedItem: null,
     };
   },
-  computed: {
-    tableHeaders() {
-      return [
-        { text: "Mata Kuliah", value: "mata_kuliah" },
-        { text: "Nilai", value: "nilai" },
-        { text: "Actions", value: "actions", sortable: false },
-      ];
-    },
-  },
   methods: {
-    async doSave() {
+    doSave() {
       this.message = "";
+
       if (this.$refs.form.validate()) {
         this.btnSaveDisable = true;
 
         try {
-          const requestData = {
-            nim: this.form.nim,
-            tahun_ajaran: this.form.tahun_ajaran,
-            nilai: this.mataKuliahNilai.map(item => ({
-              mata_kuliah_id: this.mataKuliahOptions.find(mk => mk.nama === item.mata_kuliah).id,
-              nilai: parseInt(item.nilai)
-            }))
-          };
-
-          console.log(requestData)
-
-          const response = await this.$axios.put(`/tahun-ajaran/${this.id}`, requestData);
-
-          this.$router.push({
-            name: `tahun-ajaran___${this.$i18n.locale}`,
-            params: {
-              type: "success",
-              message: "UPDATE_SUCCESS",
-              title: this.form.nim,
-            },
-          });
+          this.$axios.post("/tahun-ajaran", this.form)
+              .then((res) => {
+                this.$router.push({
+                  name: `tahun-ajaran___${this.$i18n.locale}`,
+                  params: {
+                    type: "success",
+                    message: "ADD_SUCCESS",
+                    title: this.form.kurikulum,
+                  },
+                });
+              })
+              .catch((err) => {
+                this.$router.push({
+                  name: `tahun-ajaran___${this.$i18n.locale}`,
+                  params: {
+                    type: "error",
+                    message: "ADD_FAILED",
+                    title: this.form.kurikulum,
+                  },
+                });
+              })
         } catch (error) {
           console.error('Error:', error);
-          this.message = 'Failed to save data. Please try again.';
+          this.message = "An error occurred while saving.";
         } finally {
           this.btnSaveDisable = false;
         }
       }
     },
-    addMataKuliahNilai() {
-      if (this.selectedMataKuliah && this.nilai) {
-        if (this.editedItem) {
-          const selectedNamaMataKuliah = this.mataKuliahOptions.find(
-              option => option.id === this.selectedMataKuliah
-          ).nama;
-          this.editedItem.mata_kuliah = selectedNamaMataKuliah;
-          this.editedItem.nilai = this.nilai;
-          this.editedItem = null;
-        } else {
-          const selectedNamaMataKuliah = this.mataKuliahOptions.find(
-              option => option.id === this.selectedMataKuliah
-          ).nama;
-          this.mataKuliahNilai.push({
-            mata_kuliah: selectedNamaMataKuliah,
-            nilai: this.nilai,
-          });
-        }
-        this.resetInputFields();
-      }
-    },
-    editMataKuliahNilai(item) {
-      this.editedItem = item;
-      this.selectedMataKuliah = this.mataKuliahOptions.find(
-          mk => mk.nama === item.mata_kuliah
-      ).id;
-      this.nilai = item.nilai;
-    },
-    deleteMataKuliahNilai(item) {
-      const index = this.mataKuliahNilai.indexOf(item);
-      if (index !== -1) {
-        this.mataKuliahNilai.splice(index, 1);
-      }
-    },
-    resetForm() {
-      this.form.nim = "";
-      this.form.tahun_ajaran = "";
-      this.mataKuliahNilai = [];
-    },
-    resetInputFields() {
-      this.selectedMataKuliah = null;
-      this.nilai = "";
-    },
-    async getData() {
+getData() {
       try {
-        const response = await this.$axios.$get(`/tahun-ajaran/${this.id}`);
-        const { data } = response;
-
-        this.form.nim = data.nim;
-        this.form.tahun_ajaran = data.tahun_ajaran;
-        this.mataKuliahNilai = data.nilai.map(item => ({
-          mata_kuliah: this.mataKuliahOptions.find(mk => mk.id === item.mataKuliahID).nama,
-          nilai: item.nilai
-        }));
+        this.$axios.$get(`/tahun-ajaran/${this.id}`)
+            .then((res) => {
+              const { data } = res;
+              this.form.periode = data.periode
+              this.form.tgl_mulai = data.tgl_mulai
+              this.form.tgl_akhir = data.tgl_akhir
+              this.form.kurikulum = data.kurikulum;
+            })
       } catch (error) {
         console.error('Error:', error);
       }
     },
-    async getMataKuliahOptions() {
-      try {
-        const response = await this.$axios.get('/tahun-ajaran');
-        if (response.data.success) {
-          this.mataKuliahOptions = response.data.data.map(matkul => ({
-            id: matkul.id,
-            nama: matkul.nama_mata_kuliah,
-          }));
-        } else {
-          console.error('Failed to fetch mata kuliah:', response.data.message);
-        }
-      } catch (error) {
-        console.error('Error fetching mata kuliah:', error);
-      }
-    },
   },
-  async mounted() {
-    await this.getMataKuliahOptions();
+  mounted() {
     this.getData();
-  },
+  }
 };
 </script>

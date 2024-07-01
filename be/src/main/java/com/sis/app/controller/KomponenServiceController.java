@@ -20,7 +20,7 @@ public class KomponenServiceController {
     }
 
     @GetMapping("/{id}")
-    public BaseResponse getKomponenById(@PathVariable("id") int id) {
+    public BaseResponse getKomponenById(@PathVariable("id") String id) {
         return komponenServiceImpl.getKomponenById(id);
     }
 
@@ -30,7 +30,7 @@ public class KomponenServiceController {
     }
 
     @DeleteMapping("/{id}")
-    public BaseResponse deleteKomponen(@PathVariable("id") int id) {
+    public BaseResponse deleteKomponen(@PathVariable("id") String id) {
         return komponenServiceImpl.deleteKomponen(id);
     }
 }

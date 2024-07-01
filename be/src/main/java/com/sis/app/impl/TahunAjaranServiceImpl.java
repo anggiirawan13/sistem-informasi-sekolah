@@ -27,7 +27,7 @@ public class TahunAjaranServiceImpl implements TahunAjaranService {
     public BaseResponse getAllTahunAjaran(int page, int limit, String search) {
         List<TahunAjaran> tahunAjaran = new ArrayList<>();
         HashMap<String, Object> addEntity = new HashMap<>();
-        if (page < 0 || limit < 0) {
+        if (page < 0 && limit < 0) {
             tahunAjaran = tahunAjaranRepo.findAll();
         } else {
             Pageable pageable = Pageable.ofSize(limit).withPage(page);
@@ -44,8 +44,8 @@ public class TahunAjaranServiceImpl implements TahunAjaranService {
     }
 
     @Override
-    public BaseResponse getTahunAjaranById(int id) {
-        return new BaseResponse(true, "", tahunAjaranRepo.findById(id).orElse(null));
+    public BaseResponse getTahunAjaranById(String id) {
+        return new BaseResponse(true, "", tahunAjaranRepo.findById(Integer.valueOf(id)).orElse(null));
     }
 
     @Override
@@ -58,8 +58,8 @@ public class TahunAjaranServiceImpl implements TahunAjaranService {
     }
 
     @Override
-    public BaseResponse deleteTahunAjaran(int id) {
-        tahunAjaranRepo.deleteById(id);
+    public BaseResponse deleteTahunAjaran(String id) {
+        tahunAjaranRepo.deleteById(Integer.valueOf(id));
         return new BaseResponse(true, "", null);
     }
 }

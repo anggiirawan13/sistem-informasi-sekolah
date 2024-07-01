@@ -40,8 +40,8 @@ public class TransaksiServiceImpl implements TransaksiService {
     }
 
     @Override
-    public BaseResponse getTransaksiById(int id) {
-        return new BaseResponse(true, "", transaksiRepo.findById(id).orElse(null));
+    public BaseResponse getTransaksiById(String id) {
+        return new BaseResponse(true, "", transaksiRepo.findById(Integer.valueOf(id)).orElse(null));
     }
 
     @Override
@@ -50,8 +50,8 @@ public class TransaksiServiceImpl implements TransaksiService {
     }
 
     @Override
-    public BaseResponse deleteTransaksi(int id) {
-        transaksiRepo.deleteById(id);
+    public BaseResponse deleteTransaksi(String id) {
+        transaksiRepo.deleteById(Integer.valueOf(id));
         return new BaseResponse(true, "", null);
     }
 }

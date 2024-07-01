@@ -20,7 +20,7 @@ public class TagihanLainServiceController {
     }
 
     @GetMapping("/{id}")
-    public BaseResponse getTagihanLainById(@PathVariable("id") int id) {
+    public BaseResponse getTagihanLainById(@PathVariable("id") String id) {
         return tagihanLainServiceImpl.getTagihanLainById(id);
     }
 
@@ -30,7 +30,7 @@ public class TagihanLainServiceController {
     }
 
     @DeleteMapping("/{id}")
-    public BaseResponse deleteTagihanLain(@PathVariable("id") int id) {
+    public BaseResponse deleteTagihanLain(@PathVariable("id") String id) {
         return tagihanLainServiceImpl.deleteTagihanLain(id);
     }
 }

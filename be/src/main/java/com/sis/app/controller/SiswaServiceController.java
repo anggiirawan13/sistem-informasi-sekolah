@@ -20,7 +20,7 @@ public class SiswaServiceController {
     }
 
     @GetMapping("/{id}")
-    public BaseResponse getSiswaById(@PathVariable("id") int id) {
+    public BaseResponse getSiswaById(@PathVariable("id") String id) {
         return siswaServiceImpl.getSiswaById(id);
     }
 
@@ -30,7 +30,7 @@ public class SiswaServiceController {
     }
 
     @DeleteMapping("/{id}")
-    public BaseResponse deleteSiswa(@PathVariable("id") int id) {
+    public BaseResponse deleteSiswa(@PathVariable("id") String id) {
         return siswaServiceImpl.deleteSiswa(id);
     }
 }

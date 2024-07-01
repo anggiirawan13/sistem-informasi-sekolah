@@ -5,7 +5,7 @@ import com.sis.app.web.BaseResponse;
 
 public interface PembayaranService {
     BaseResponse getAllPembayaran();
-    BaseResponse getPembayaranById(int id);
+    BaseResponse getPembayaranById(String id);
     BaseResponse savePembayaran(Pembayaran pembayaran);
-    BaseResponse deletePembayaran(int id);
+    BaseResponse deletePembayaran(String id);
 }

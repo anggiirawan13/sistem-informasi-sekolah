@@ -19,8 +19,8 @@ public class KomponenServiceImpl implements KomponenService {
     }
 
     @Override
-    public BaseResponse getKomponenById(int id) {
-        return new BaseResponse(true, "", komponenRepo.findById(id).orElse(null));
+    public BaseResponse getKomponenById(String id) {
+        return new BaseResponse(true, "", komponenRepo.findById(Integer.valueOf(id)).orElse(null));
     }
 
     @Override
@@ -29,8 +29,8 @@ public class KomponenServiceImpl implements KomponenService {
     }
 
     @Override
-    public BaseResponse deleteKomponen(int id) {
-        komponenRepo.deleteById(id);
+    public BaseResponse deleteKomponen(String id) {
+        komponenRepo.deleteById(Integer.valueOf(id));
         return new BaseResponse(true, "", null);
     }
 }

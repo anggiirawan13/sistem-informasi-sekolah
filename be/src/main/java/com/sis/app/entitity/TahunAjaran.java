@@ -3,7 +3,9 @@ package com.sis.app.entitity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.cglib.core.Local;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -20,11 +22,11 @@ public class TahunAjaran {
 
     @Column(name = "tgl_mulai")
     @JsonProperty("tgl_mulai")
-    private Date tglMulai;
+    private LocalDate tglMulai;
 
     @Column(name = "tgl_akhir")
     @JsonProperty("tgl_akhir")
-    private Date tglAkhir;
+    private LocalDate tglAkhir;
 
     @Column(name = "kurikulum")
     @JsonProperty("kurikulum")

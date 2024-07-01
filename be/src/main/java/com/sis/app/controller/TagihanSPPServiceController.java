@@ -20,7 +20,7 @@ public class TagihanSPPServiceController {
     }
 
     @GetMapping("/{id}")
-    public BaseResponse getTagihanSPPById(@PathVariable("id") int id) {
+    public BaseResponse getTagihanSPPById(@PathVariable("id") String id) {
         return tagihanSPPServiceImpl.getTagihanSPPById(id);
     }
 
@@ -30,7 +30,7 @@ public class TagihanSPPServiceController {
     }
 
     @DeleteMapping("/{id}")
-    public BaseResponse deleteTagihanSPP(@PathVariable("id") int id) {
+    public BaseResponse deleteTagihanSPP(@PathVariable("id") String id) {
         return tagihanSPPServiceImpl.deleteTagihanSPP(id);
     }
 }

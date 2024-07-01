@@ -19,8 +19,8 @@ public class PembayaranServiceImpl implements PembayaranService {
     }
 
     @Override
-    public BaseResponse getPembayaranById(int id) {
-        return new BaseResponse(true, "", pembayaranRepo.findById(id).orElse(null));
+    public BaseResponse getPembayaranById(String id) {
+        return new BaseResponse(true, "", pembayaranRepo.findById(Integer.valueOf(id)).orElse(null));
     }
 
     @Override
@@ -29,8 +29,8 @@ public class PembayaranServiceImpl implements PembayaranService {
     }
 
     @Override
-    public BaseResponse deletePembayaran(int id) {
-        pembayaranRepo.deleteById(id);
+    public BaseResponse deletePembayaran(String id) {
+        pembayaranRepo.deleteById(Integer.valueOf(id));
         return new BaseResponse(true, "", null);
     }
 }

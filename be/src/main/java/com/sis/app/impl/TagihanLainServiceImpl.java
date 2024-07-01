@@ -19,8 +19,8 @@ public class TagihanLainServiceImpl implements TagihanLainService {
     }
 
     @Override
-    public BaseResponse getTagihanLainById(int id) {
-        return new BaseResponse(true, "", tagihanLainRepo.findById(id).orElse(null));
+    public BaseResponse getTagihanLainById(String id) {
+        return new BaseResponse(true, "", tagihanLainRepo.findById(Integer.valueOf(id)).orElse(null));
     }
 
     @Override
@@ -29,8 +29,8 @@ public class TagihanLainServiceImpl implements TagihanLainService {
     }
 
     @Override
-    public BaseResponse deleteTagihanLain(int id) {
-        tagihanLainRepo.deleteById(id);
+    public BaseResponse deleteTagihanLain(String id) {
+        tagihanLainRepo.deleteById(Integer.valueOf(id));
         return new BaseResponse(true, "", null);
     }
 }

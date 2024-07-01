@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class Komponen {
 
     @Column(name = "tgl_dibuat")
     @JsonProperty("tgl_dibuat")
-    private Date tglDibuat;
+    private LocalDate tglDibuat;
 
     @ManyToOne
     @JoinColumn(name = "id_ta", insertable = false, updatable = false)

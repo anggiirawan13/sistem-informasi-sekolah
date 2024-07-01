@@ -16,12 +16,12 @@ public class TahunAjaranServiceController {
     private TahunAjaranServiceImpl tahunAjaranServiceImpl;
 
     @GetMapping
-    public BaseResponse getAllTahunAjaran(@RequestParam(value = "page", required = false, defaultValue = "0") int page, @RequestParam(value = "limit", required = false, defaultValue = "0") int limit, @RequestParam(value = "search", required = false, defaultValue = "") String search) {
+    public BaseResponse getAllTahunAjaran(@RequestParam(value = "page", required = false, defaultValue = "0") int page, @RequestParam(value = "limit", required = false, defaultValue = "10") int limit, @RequestParam(value = "search", required = false, defaultValue = "") String search) {
         return tahunAjaranServiceImpl.getAllTahunAjaran(page, limit, search);
     }
 
     @GetMapping("/{id}")
-    public BaseResponse getTahunAjaranById(@PathVariable("id") int id) {
+    public BaseResponse getTahunAjaranById(@PathVariable("id") String id) {
         return tahunAjaranServiceImpl.getTahunAjaranById(id);
     }
 
@@ -31,7 +31,7 @@ public class TahunAjaranServiceController {
     }
 
     @DeleteMapping("/{id}")
-    public BaseResponse deleteTahunAjaran(@PathVariable("id") int id) {
+    public BaseResponse deleteTahunAjaran(@PathVariable("id") String id) {
         return tahunAjaranServiceImpl.deleteTahunAjaran(id);
     }
 }

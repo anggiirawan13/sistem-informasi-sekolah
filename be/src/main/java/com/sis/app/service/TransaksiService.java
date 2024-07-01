@@ -5,7 +5,7 @@ import com.sis.app.web.BaseResponse;
 
 public interface TransaksiService {
     BaseResponse getAllTransaksi(int page, int limit, String search);
-    BaseResponse getTransaksiById(int id);
+    BaseResponse getTransaksiById(String id);
     BaseResponse saveTransaksi(Transaksi transaksi);
-    BaseResponse deleteTransaksi(int id);
+    BaseResponse deleteTransaksi(String id);
 }

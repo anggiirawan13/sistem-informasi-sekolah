@@ -6,8 +6,8 @@ import com.sis.app.web.request.TahunAjaranReq;
 
 public interface TahunAjaranService {
     BaseResponse getAllTahunAjaran(int page, int limit, String search);
-    BaseResponse getTahunAjaranById(int id);
+    BaseResponse getTahunAjaranById(String id);
     BaseResponse saveTahunAjaran(TahunAjaran req);
-    BaseResponse deleteTahunAjaran(int id);
+    BaseResponse deleteTahunAjaran(String id);
 }
 

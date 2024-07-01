@@ -5,7 +5,7 @@ import com.sis.app.web.BaseResponse;
 
 public interface TagihanSPPService {
     BaseResponse getAllTagihanSPP();
-    BaseResponse getTagihanSPPById(int id);
+    BaseResponse getTagihanSPPById(String id);
     BaseResponse saveTagihanSPP(TagihanSPP tagihanSPP);
-    BaseResponse deleteTagihanSPP(int id);
+    BaseResponse deleteTagihanSPP(String id);
 }

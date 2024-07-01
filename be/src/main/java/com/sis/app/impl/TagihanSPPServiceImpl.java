@@ -19,8 +19,8 @@ public class TagihanSPPServiceImpl implements TagihanSPPService {
     }
 
     @Override
-    public BaseResponse getTagihanSPPById(int id) {
-        return new BaseResponse(true, "", tagihanSPPRepo.findById(id).orElse(null));
+    public BaseResponse getTagihanSPPById(String id) {
+        return new BaseResponse(true, "", tagihanSPPRepo.findById(Integer.valueOf(id)).orElse(null));
     }
 
     @Override
@@ -29,8 +29,8 @@ public class TagihanSPPServiceImpl implements TagihanSPPService {
     }
 
     @Override
-    public BaseResponse deleteTagihanSPP(int id) {
-        tagihanSPPRepo.deleteById(id);
+    public BaseResponse deleteTagihanSPP(String id) {
+        tagihanSPPRepo.deleteById(Integer.valueOf(id));
         return new BaseResponse(true, "", null);
     }
 }
