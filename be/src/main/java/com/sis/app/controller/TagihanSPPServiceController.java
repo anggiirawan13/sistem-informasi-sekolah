@@ -29,6 +29,11 @@ public class TagihanSPPServiceController {
         return tagihanSPPServiceImpl.saveTagihanSPP(tagihanSPP);
     }
 
+    @PutMapping
+    public BaseResponse updateTagihanSPP(@RequestBody TagihanSPP tagihanSPP) {
+        return tagihanSPPServiceImpl.updateTagihanSPP(tagihanSPP);
+    }
+
     @DeleteMapping("/{id}")
     public BaseResponse deleteTagihanSPP(@PathVariable("id") String id) {
         return tagihanSPPServiceImpl.deleteTagihanSPP(id);

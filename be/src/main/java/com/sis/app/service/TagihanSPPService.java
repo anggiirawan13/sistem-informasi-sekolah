@@ -7,5 +7,6 @@ public interface TagihanSPPService {
     BaseResponse getAllTagihanSPP();
     BaseResponse getTagihanSPPById(String id);
     BaseResponse saveTagihanSPP(TagihanSPP tagihanSPP);
+    BaseResponse updateTagihanSPP(TagihanSPP tagihanSPP);
     BaseResponse deleteTagihanSPP(String id);
 }

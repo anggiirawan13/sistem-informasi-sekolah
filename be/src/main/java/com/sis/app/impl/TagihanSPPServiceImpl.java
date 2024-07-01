@@ -29,6 +29,11 @@ public class TagihanSPPServiceImpl implements TagihanSPPService {
     }
 
     @Override
+    public BaseResponse updateTagihanSPP(TagihanSPP tagihanSPP) {
+        return new BaseResponse(true, "", tagihanSPPRepo.save(tagihanSPP));
+    }
+
+    @Override
     public BaseResponse deleteTagihanSPP(String id) {
         tagihanSPPRepo.deleteById(Integer.valueOf(id));
         return new BaseResponse(true, "", null);

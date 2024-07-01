@@ -7,5 +7,6 @@ public interface SiswaService {
     BaseResponse getAllSiswa();
     BaseResponse getSiswaById(String id);
     BaseResponse saveSiswa(Siswa siswa);
+    BaseResponse updateSiswa(Siswa siswa);
     BaseResponse deleteSiswa(String id);
 }

@@ -30,6 +30,11 @@ public class TahunAjaranServiceController {
         return tahunAjaranServiceImpl.saveTahunAjaran(req);
     }
 
+    @PutMapping
+    public BaseResponse updateTahunAjaran(@RequestBody TahunAjaran req) {
+        return tahunAjaranServiceImpl.updateTahunAjaran(req);
+    }
+
     @DeleteMapping("/{id}")
     public BaseResponse deleteTahunAjaran(@PathVariable("id") String id) {
         return tahunAjaranServiceImpl.deleteTahunAjaran(id);

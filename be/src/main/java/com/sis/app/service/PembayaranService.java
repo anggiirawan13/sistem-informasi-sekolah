@@ -7,5 +7,6 @@ public interface PembayaranService {
     BaseResponse getAllPembayaran();
     BaseResponse getPembayaranById(String id);
     BaseResponse savePembayaran(Pembayaran pembayaran);
+    BaseResponse updatePembayaran(Pembayaran pembayaran);
     BaseResponse deletePembayaran(String id);
 }

@@ -49,12 +49,13 @@ public class TahunAjaranServiceImpl implements TahunAjaranService {
     }
 
     @Override
-    public BaseResponse saveTahunAjaran(TahunAjaran req) {
-        try {
-            return new BaseResponse(true, "", tahunAjaranRepo.save(req));
-        } catch (Exception e) {
-            return new BaseResponse(false, "", null);
-        }
+    public BaseResponse saveTahunAjaran(TahunAjaran tahunAjaran) {
+        return new BaseResponse(true, "", tahunAjaranRepo.save(tahunAjaran));
+    }
+
+    @Override
+    public BaseResponse updateTahunAjaran(TahunAjaran tahunAjaran) {
+        return new BaseResponse(true, "", tahunAjaranRepo.save(tahunAjaran));
     }
 
     @Override

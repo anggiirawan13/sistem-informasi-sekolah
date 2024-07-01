@@ -29,6 +29,11 @@ public class KomponenServiceController {
         return komponenServiceImpl.saveKomponen(komponen);
     }
 
+    @PostMapping
+    public BaseResponse updateKomponen(@RequestBody Komponen komponen) {
+        return komponenServiceImpl.updateKomponen(komponen);
+    }
+
     @DeleteMapping("/{id}")
     public BaseResponse deleteKomponen(@PathVariable("id") String id) {
         return komponenServiceImpl.deleteKomponen(id);

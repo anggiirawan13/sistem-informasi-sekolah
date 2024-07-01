@@ -29,6 +29,11 @@ public class TagihanLainServiceController {
         return tagihanLainServiceImpl.saveTagihanLain(tagihanLain);
     }
 
+    @PostMapping
+    public BaseResponse updateTagihanLain(@RequestBody TagihanLain tagihanLain) {
+        return tagihanLainServiceImpl.updateTagihanLain(tagihanLain);
+    }
+
     @DeleteMapping("/{id}")
     public BaseResponse deleteTagihanLain(@PathVariable("id") String id) {
         return tagihanLainServiceImpl.deleteTagihanLain(id);

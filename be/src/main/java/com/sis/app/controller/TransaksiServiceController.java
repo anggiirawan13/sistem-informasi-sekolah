@@ -29,6 +29,11 @@ public class TransaksiServiceController {
         return transaksiServiceImpl.saveTransaksi(transaksi);
     }
 
+    @PutMapping
+    public BaseResponse UpdateTransaksi(@RequestBody Transaksi transaksi) {
+        return transaksiServiceImpl.updateTransaksi(transaksi);
+    }
+
     @DeleteMapping("/{id}")
     public BaseResponse deleteTransaksi(@PathVariable("id") String id) {
         return transaksiServiceImpl.deleteTransaksi(id);

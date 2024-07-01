@@ -7,5 +7,6 @@ public interface KomponenService {
     BaseResponse getAllKomponen();
     BaseResponse getKomponenById(String id);
     BaseResponse saveKomponen(Komponen komponen);
+    BaseResponse updateKomponen(Komponen komponen);
     BaseResponse deleteKomponen(String id);
 }

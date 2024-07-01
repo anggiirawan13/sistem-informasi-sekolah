@@ -29,6 +29,11 @@ public class PembayaranServiceController {
         return pembayaranServiceImpl.savePembayaran(pembayaran);
     }
 
+    @PutMapping
+    public BaseResponse updatePembayaran(@RequestBody Pembayaran pembayaran) {
+        return pembayaranServiceImpl.updatePembayaran(pembayaran);
+    }
+
     @DeleteMapping("/{id}")
     public BaseResponse deletePembayaran(@PathVariable("id") String id) {
         return pembayaranServiceImpl.deletePembayaran(id);

@@ -29,6 +29,11 @@ public class TagihanLainServiceImpl implements TagihanLainService {
     }
 
     @Override
+    public BaseResponse updateTagihanLain(TagihanLain tagihanLain) {
+        return new BaseResponse(true, "", tagihanLainRepo.save(tagihanLain));
+    }
+
+    @Override
     public BaseResponse deleteTagihanLain(String id) {
         tagihanLainRepo.deleteById(Integer.valueOf(id));
         return new BaseResponse(true, "", null);

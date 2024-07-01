@@ -29,6 +29,11 @@ public class SiswaServiceController {
         return siswaServiceImpl.saveSiswa(siswa);
     }
 
+    @PutMapping
+    public BaseResponse updateSiswa(@RequestBody Siswa siswa) {
+        return siswaServiceImpl.updateSiswa(siswa);
+    }
+
     @DeleteMapping("/{id}")
     public BaseResponse deleteSiswa(@PathVariable("id") String id) {
         return siswaServiceImpl.deleteSiswa(id);

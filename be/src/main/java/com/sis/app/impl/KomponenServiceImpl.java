@@ -29,6 +29,11 @@ public class KomponenServiceImpl implements KomponenService {
     }
 
     @Override
+    public BaseResponse updateKomponen(Komponen komponen) {
+        return new BaseResponse(true, "", komponenRepo.save(komponen));
+    }
+
+    @Override
     public BaseResponse deleteKomponen(String id) {
         komponenRepo.deleteById(Integer.valueOf(id));
         return new BaseResponse(true, "", null);

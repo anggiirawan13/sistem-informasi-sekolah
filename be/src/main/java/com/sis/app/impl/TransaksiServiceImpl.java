@@ -50,6 +50,11 @@ public class TransaksiServiceImpl implements TransaksiService {
     }
 
     @Override
+    public BaseResponse updateTransaksi(Transaksi transaksi) {
+        return new BaseResponse(true, "", transaksiRepo.save(transaksi));
+    }
+
+    @Override
     public BaseResponse deleteTransaksi(String id) {
         transaksiRepo.deleteById(Integer.valueOf(id));
         return new BaseResponse(true, "", null);

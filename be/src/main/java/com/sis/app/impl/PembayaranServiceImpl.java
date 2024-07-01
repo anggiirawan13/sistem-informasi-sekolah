@@ -29,6 +29,11 @@ public class PembayaranServiceImpl implements PembayaranService {
     }
 
     @Override
+    public BaseResponse updatePembayaran(Pembayaran pembayaran) {
+        return new BaseResponse(true, "", pembayaranRepo.save(pembayaran));
+    }
+
+    @Override
     public BaseResponse deletePembayaran(String id) {
         pembayaranRepo.deleteById(Integer.valueOf(id));
         return new BaseResponse(true, "", null);

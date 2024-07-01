@@ -58,7 +58,7 @@
               </v-dialog>
             </template>
             <template v-slot:item.actions="{ item }">
-              <v-btn :to="`tahun-ajaran/edit/${item.id}`" icon
+              <v-btn :to="`/tahun-ajaran/edit/${item.id}`" icon
                 ><v-icon small>mdi-pencil</v-icon></v-btn
               >
               <v-btn small icon @click="deleteItem(item)"
@@ -115,7 +115,6 @@ export default {
         .then((response) => {
           this.tahun_ajaran = [];
           this.totalData = 0;
-          console.log(response);
           if (response.success) {
             this.tahun_ajaran = response.data;
             this.totalData = response.additionalEntity.totalData;
@@ -150,6 +149,7 @@ export default {
         });
     },
     deleteItem(item) {
+      console.log(item)
       this.dialogDelete = true;
       this.itemDelete = item;
     },

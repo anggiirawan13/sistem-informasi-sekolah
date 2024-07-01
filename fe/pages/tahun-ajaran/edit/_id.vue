@@ -60,6 +60,11 @@ export default {
   head: {
     title: "Ubah Tahun Ajaran",
   },
+  asyncData({ params }) {
+    return {
+      id: params.id,
+    };
+  },
   data() {
     return {
       breadcrumbs: [
@@ -69,6 +74,7 @@ export default {
       btnSaveDisable: false,
       message: "",
       form: {
+        id: this.id,
         periode: "",
         tgl_mulai: "",
         tgl_akhir: "",
@@ -90,7 +96,7 @@ export default {
         this.btnSaveDisable = true;
 
         try {
-          this.$axios.post("/tahun-ajaran", this.form)
+          this.$axios.$put(`/tahun-ajaran`, this.form)
               .then((res) => {
                 this.$router.push({
                   name: `tahun-ajaran___${this.$i18n.locale}`,

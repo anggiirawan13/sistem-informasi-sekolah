@@ -28,6 +28,10 @@ public class SiswaServiceImpl implements SiswaService {
         return new BaseResponse(true, "", siswaRepo.save(siswa));
     }
 
+    public BaseResponse updateSiswa(Siswa siswa) {
+        return new BaseResponse(true, "", siswaRepo.save(siswa));
+    }
+
     @Override
     public BaseResponse deleteSiswa(String id) {
         siswaRepo.deleteById(Integer.valueOf(id));
