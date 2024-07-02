@@ -72,11 +72,11 @@ export default {
       themes: {
         dark: {
           primary: colors.blueGrey.darken3,
-          accent: colors.amber.darken3,
+          accent: colors.grey.darken2,
           secondary: colors.green.darken2,
-          info: colors.teal.lighten1,
+          info: colors.blue.base,
           warning: colors.amber.base,
-          error: colors.deepOrange.accent4,
+          error: colors.red.lighten1,
           success: colors.green.accent3,
         },
       },

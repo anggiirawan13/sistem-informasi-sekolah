@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-btn @click="generatePDF" color="primary" class="mb-2">Download PDF</v-btn>
+    <v-btn @click="generatePDF" :color="$vuetify.theme.themes.dark.secondary" dark class="mb-2">Download PDF</v-btn>
     <v-card>
       <v-card-title>Laporan Siswa</v-card-title>
       <v-card-text>

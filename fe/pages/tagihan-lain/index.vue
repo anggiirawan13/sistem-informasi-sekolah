@@ -2,7 +2,7 @@
   <v-row class="frame-content">
     <v-col cols="10" offset="1">
       <v-card class="my-3">
-        <v-toolbar color="primary" dark>
+        <v-toolbar :color="$vuetify.theme.themes.dark.primary" dark >
           Tagihan Lain
           <v-spacer></v-spacer>
           <v-text-field
@@ -18,7 +18,7 @@
           <div class="d-flex mb-4">
             <v-breadcrumbs :items="breadcrumbs" class="pa-0" />
             <v-spacer></v-spacer>
-            <v-btn to="/tagihan-lain/add" color="primary" elevation="3" small
+            <v-btn to="/tagihan-lain/add" :color="$vuetify.theme.themes.dark.secondary" dark elevation="3" small
               >Tambah <v-icon right>mdi-plus-circle</v-icon></v-btn
             >
           </div>
@@ -44,7 +44,7 @@
                   >
                   <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="primary" text @click="cancelDelete"
+                    <v-btn :color="$vuetify.theme.themes.dark.accent" dark text @click="cancelDelete"
                       >Cancel</v-btn
                     >
                     <v-btn
@@ -58,10 +58,10 @@
               </v-dialog>
             </template>
             <template v-slot:item.actions="{ item }">
-              <v-btn :to="`/tagihan-lain/edit/${item.id}`" icon
+              <v-btn :to="`/tagihan-lain/edit/${item.id}`" icon :color="$vuetify.theme.themes.dark.info"
                 ><v-icon small>mdi-pencil</v-icon></v-btn
               >
-              <v-btn small icon @click="deleteItem(item)"
+              <v-btn small icon @click="deleteItem(item)" :color="$vuetify.theme.themes.dark.error"
                 ><v-icon small>mdi-delete</v-icon></v-btn
               >
             </template>

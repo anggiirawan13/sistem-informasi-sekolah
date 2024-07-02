@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-navigation-drawer disable-resize-watcher fixed app>
+    <v-navigation-drawer disable-resize-watcher fixed app :color="$vuetify.theme.themes.dark.primary" dark>
       <v-list>
         <v-list-item
           v-for="(item, i) in sideMenu"
@@ -34,6 +34,11 @@ export default {
     return {
       sideDrawer: false,
       sideMenu: [
+        {
+          icon: "mdi-view-dashboard-outline",
+          title: "Dashboard",
+          to: "/",
+        },
         {
           icon: "mdi-calendar-month-outline",
           title: "Tahun Ajaran",
@@ -73,7 +78,7 @@ export default {
     };
   },
   mounted() {
-    this.$router.push("/tahun-ajaran")
+    this.$router.push("/")
   },
 };
 </script>

@@ -3,9 +3,9 @@
     <!-- Input Fields -->
     <v-col cols="10" offset="1">
       <v-card class="mb-2">
-        <v-toolbar color="primary" dark>TAMBAH SISWA</v-toolbar>
+        <v-toolbar :color="$vuetify.theme.themes.dark.primary" dark >TAMBAH SISWA</v-toolbar>
         <v-card-text>
-          <v-alert v-if="message" color="red lighten-2" dark>{{ $t(message) }}</v-alert>
+          <v-alert v-if="message" color="red lighten-2" >{{ $t(message) }}</v-alert>
           <v-breadcrumbs :items="breadcrumbs" class="pa-0"></v-breadcrumbs>
           <v-form ref="form">
             <v-text-field
@@ -66,9 +66,9 @@
           </v-form>
         </v-card-text>
         <v-card-actions>
-          <v-btn to="/siswa" color="secondary">Back</v-btn>
+          <v-btn to="/siswa" :color="$vuetify.theme.themes.dark.accent" dark>Back</v-btn>
           <v-spacer />
-          <v-btn @click="doSave" color="primary" :loading="btnSaveDisable">Save</v-btn>
+          <v-btn @click="doSave" :color="$vuetify.theme.themes.dark.secondary" dark :loading="btnSaveDisable">Save</v-btn>
         </v-card-actions>
       </v-card>
     </v-col>
