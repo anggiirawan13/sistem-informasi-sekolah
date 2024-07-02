@@ -28,8 +28,6 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-
 export default {
   name: "DefaultLayout",
   data() {
@@ -37,37 +35,37 @@ export default {
       sideDrawer: false,
       sideMenu: [
         {
-          icon: "mdi-library",
+          icon: "mdi-calendar-month-outline",
           title: "Tahun Ajaran",
           to: "/tahun-ajaran",
         },
         {
-          icon: "mdi-account-school",
+          icon: "mdi-account-school-outline",
           title: "siswa",
           to: "/siswa",
         },
         {
-          icon: "mdi-file",
+          icon: "mdi-credit-card-outline",
           title: "Pembayaran",
           to: "/pembayaran",
         },
         {
-          icon: "mdi-file",
+          icon: "mdi-cash-sync",
           title: "Transaksi",
           to: "/transaksi",
         },
         {
-          icon: "mdi-file",
+          icon: "mdi-receipt-text-outline",
           title: "Tagihan SPP",
           to: "/tagihan-spp",
         },
         {
-          icon: "mdi-file",
+          icon: "mdi-widgets-outline",
           title: "Komponen",
           to: "/komponen",
         },
         {
-          icon: "mdi-file",
+          icon: "mdi-list-box-outline",
           title: "Tagihan Lain",
           to: "/tagihan-lain",
         },
