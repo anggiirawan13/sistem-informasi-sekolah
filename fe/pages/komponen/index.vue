@@ -90,7 +90,7 @@ export default {
       itemDelete: "",
       headers: [
         { text: "No.", value: "number", sortable: false },
-        { text: "NIM", value: "nim", sortable: false },
+        { text: "Kode Komponen", value: "kode_komponen", sortable: false },
         { text: "Nama Komponen", value: "nama_komponen", sortable: false },
         { text: "Actions", value: "actions", sortable: false },
       ],

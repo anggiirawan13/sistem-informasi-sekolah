@@ -3,7 +3,7 @@
     <v-col cols="10" offset="1">
       <v-card class="my-3">
         <v-toolbar color="primary" dark>
-          TagihanLAIN
+          Tagihan Lain
           <v-spacer></v-spacer>
           <v-text-field
             v-model="search"
@@ -40,7 +40,7 @@
                 <v-card>
                   <v-card-title
                     >Kamu yakin ingin menghapus data
-                    {{ itemDelete.nama_tagihan_lain }}?</v-card-title
+                    {{ itemDelete.tgl_bayar }}?</v-card-title
                   >
                   <v-card-actions>
                     <v-spacer></v-spacer>
@@ -75,7 +75,7 @@
 <script>
 export default {
   head: {
-    title: "TagihanLAIN",
+    title: "Tagihan Lain",
   },
   data() {
     return {
@@ -90,8 +90,8 @@ export default {
       itemDelete: "",
       headers: [
         { text: "No.", value: "number", sortable: false },
-        { text: "NIM", value: "nim", sortable: false },
-        { text: "Nama TagihanLAIN", value: "nama_tagihan_lain", sortable: false },
+        { text: "Tanggal Bayar", value: "tgl_bayar", sortable: false },
+        { text: "Status", value: "status", sortable: false },
         { text: "Actions", value: "actions", sortable: false },
       ],
       breadcrumbs: [
@@ -104,7 +104,7 @@ export default {
     };
   },
   methods: {
-    getTagihanLAIN() {
+    getTagihanLain() {
       this.isLoading = true;
       const { page, itemsPerPage } = this.options;
 
@@ -134,10 +134,10 @@ export default {
       this.$axios
         .$delete(`/tagihan-lain/${id}`)
         .then(async () => {
-          await this.getTagihanLAIN();
+          await this.getTagihanLain();
           this.alertType = "success";
           this.message = this.$t("DELETE_SUCCESS", {
-            title: this.itemDelete.nama_tagihan_lain,
+            title: this.itemDelete.tgl_bayar,
           });
         })
         .catch((error) => {
@@ -158,13 +158,13 @@ export default {
   watch: {
     options: {
       handler() {
-        this.getTagihanLAIN();
+        this.getTagihanLain();
       },
       deep: true,
     },
     search: {
       handler() {
-        this.getTagihanLAIN();
+        this.getTagihanLain();
       },
     },
   },
@@ -172,7 +172,7 @@ export default {
     if (this.$route.params.message) {
       this.alertType = this.$route.params.type;
       this.message = this.$t(this.$route.params.message, {
-        title: this.$route.params.nama_tagihan_lain,
+        title: this.$route.params.tgl_bayar,
       });
     }
   },

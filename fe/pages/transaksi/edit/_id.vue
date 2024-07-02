@@ -3,24 +3,31 @@
     <!-- Input Fields -->
     <v-col cols="10" offset="1">
       <v-card class="mb-2">
-        <v-toolbar color="primary" dark>TAMBAH TRANSAKSI</v-toolbar>
+        <v-toolbar color="primary" dark>UBAH TAGIHAN SPP</v-toolbar>
         <v-card-text>
           <v-alert v-if="message" color="red lighten-2" dark>{{ $t(message) }}</v-alert>
           <v-breadcrumbs :items="breadcrumbs" class="pa-0"></v-breadcrumbs>
           <v-form ref="form">
             <v-text-field
-                name="kode_transaksi"
+                name="bulan"
                 label="Kode Transaksi"
-                type="text"
-                :rules="rules.kode_transaksi"
-                v-model="form.kode_transaksi"
+                type="number"
+                :rules="rules.bulan"
+                v-model="form.bulan"
             />
             <v-text-field
-                name="tgl_pembayaran"
-                label="Tanggal Pembayaran"
+                name="jml_bayar"
+                label="Jumlah Bayar"
+                type="number"
+                :rules="rules.jml_bayar"
+                v-model="form.jml_bayar"
+            />
+            <v-text-field
+                name="tgl_bayar"
+                label="Tanggal Bayar"
                 type="date"
-                :rules="rules.tgl_pembayaran"
-                v-model="form.tgl_pembayaran"
+                :rules="rules.tgl_bayar"
+                v-model="form.tgl_bayar"
             />
             <v-select
                 label="Status"
@@ -31,7 +38,7 @@
           </v-form>
         </v-card-text>
         <v-card-actions>
-          <v-btn to="/transaksi" color="secondary">Back</v-btn>
+          <v-btn to="/tagihan-spp" color="secondary">Back</v-btn>
           <v-spacer />
           <v-btn @click="doSave" color="primary" :loading="btnSaveDisable">Save</v-btn>
         </v-card-actions>
@@ -43,7 +50,7 @@
 <script>
 export default {
   head: {
-    title: "Tambah Transaksi",
+    title: "Ubah Tagihan SPP",
   },
   asyncData({ params }) {
     return {
@@ -53,16 +60,16 @@ export default {
   data() {
     return {
       breadcrumbs: [
-        {text: "Transaksi", to: "/transaksi", disabled: false, exact: true},
-        {text: "Tambah", disabled: true},
+        {text: "Tagihan SPP", to: "/tagihan-spp", disabled: false, exact: true},
+        {text: "Ubah", disabled: true},
       ],
       btnSaveDisable: false,
       message: "",
       status: ["Berhasil", "Pending", "Gagal"],
       form: {
         id: 0,
-        id_ta: 2,
-        id_transaksi: 3,
+        id_ta: 1,
+        id_siswa: 1,
         id_pembayaran: 1,
         kode_transaksi: "",
         tgl_pembayaran: "",
@@ -120,8 +127,8 @@ export default {
               const {data} = res;
 
               this.form.kode_transaksi = data.kode_transaksi,
-              this.form.tgl_pembayaran = data.tgl_pembayaran,
-              this.form.status = data.status
+                  this.form.tgl_pembayaran = data.tgl_pembayaran,
+                  this.form.status = data.status
             })
       } catch (error) {
         console.error('Error:', error);

@@ -3,7 +3,7 @@
     <v-col cols="10" offset="1">
       <v-card class="my-3">
         <v-toolbar color="primary" dark>
-          TagihanSPP
+          Tagihan SPP
           <v-spacer></v-spacer>
           <v-text-field
             v-model="search"
@@ -40,7 +40,7 @@
                 <v-card>
                   <v-card-title
                     >Kamu yakin ingin menghapus data
-                    {{ itemDelete.nama_tagihan_spp }}?</v-card-title
+                    {{ itemDelete.bulan }}?</v-card-title
                   >
                   <v-card-actions>
                     <v-spacer></v-spacer>
@@ -75,7 +75,7 @@
 <script>
 export default {
   head: {
-    title: "TagihanSPP",
+    title: "Tagihan SPP",
   },
   data() {
     return {
@@ -88,10 +88,11 @@ export default {
       alertType: "",
       dialogDelete: false,
       itemDelete: "",
+      status: ["Berhasil", "Pending", "Gagal"],
       headers: [
         { text: "No.", value: "number", sortable: false },
-        { text: "NIM", value: "nim", sortable: false },
-        { text: "Nama TagihanSPP", value: "nama_tagihan_spp", sortable: false },
+        { text: "Bulan", value: "bulan", sortable: false },
+        { text: "Status", value: "status", sortable: false },
         { text: "Actions", value: "actions", sortable: false },
       ],
       breadcrumbs: [
@@ -122,6 +123,7 @@ export default {
             i = isNaN(i) ? 1 : i;
             this.tagihan_spp.map((item) => (item.number = i++));
           }
+          console.log(response)
         })
         .catch((error) => {
           console.log(error);
@@ -137,7 +139,7 @@ export default {
           await this.getTagihanSPP();
           this.alertType = "success";
           this.message = this.$t("DELETE_SUCCESS", {
-            title: this.itemDelete.nama_tagihan_spp,
+            title: this.itemDelete.bulan,
           });
         })
         .catch((error) => {
@@ -172,7 +174,7 @@ export default {
     if (this.$route.params.message) {
       this.alertType = this.$route.params.type;
       this.message = this.$t(this.$route.params.message, {
-        title: this.$route.params.nama_tagihan_spp,
+        title: this.$route.params.bulan,
       });
     }
   },

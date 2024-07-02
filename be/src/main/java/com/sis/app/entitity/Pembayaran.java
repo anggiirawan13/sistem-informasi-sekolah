@@ -4,6 +4,10 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -36,7 +40,11 @@ public class Pembayaran {
     @JsonProperty("metode_bayar")
     private int metodeBayar;
 
-    @OneToMany(mappedBy = "pembayaran")
+    @OneToMany(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    @JoinColumns({
+            @JoinColumn(name = "id_pembayaran", referencedColumnName = "id", insertable = false, updatable = false)
+    })
     private List<Transaksi> transaksiList;
 
 }

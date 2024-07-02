@@ -36,6 +36,6 @@ public class TagihanLain {
 
     @Column(name = "status")
     @JsonProperty("status")
-    private boolean status;
+    private String status;
 
 }

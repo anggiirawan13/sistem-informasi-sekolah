@@ -27,6 +27,10 @@ public class TagihanSPP {
     @JsonProperty("id_ta")
     private int idTa;
 
+    @Column(name = "bulan")
+    @JsonProperty("bulan")
+    private int bulan;
+
     @Column(name = "jml_bayar")
     @JsonProperty("jml_bayar")
     private float jmlBayar;
@@ -37,6 +41,6 @@ public class TagihanSPP {
 
     @Column(name = "status")
     @JsonProperty("status")
-    private boolean status;
+    private String status;
 
 }

@@ -16,11 +16,11 @@
                 v-model="form.kode_transaksi"
             />
             <v-text-field
-                name="tgl_transaksi"
+                name="tgl_pembayaran"
                 label="Tanggal Transaksi"
                 type="date"
-                :rules="rules.tgl_transaksi"
-                v-model="form.tgl_transaksi"
+                :rules="rules.tgl_pembayaran"
+                v-model="form.tgl_pembayaran"
             />
             <v-select
                 label="Status"
@@ -55,16 +55,16 @@ export default {
       message: "",
       status: ["Berhasil", "Pending", "Gagal"],
       form: {
-        id_ta: 2,
-        id_siswa: 3,
+        id_ta: 1,
+        id_siswa: 1,
         id_pembayaran: 1,
         kode_transaksi: "",
-        tgl_transaksi: "",
+        tgl_pembayaran: "",
         status: "",
       },
       rules: {
         kode_transaksi: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Kode Transaksi" })],
-        tgl_transaksi: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Tanggal Pembayaran" })],
+        tgl_pembayaran: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Tanggal Pembayaran" })],
         status: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Status" })],
       },
     };

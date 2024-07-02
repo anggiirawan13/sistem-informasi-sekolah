@@ -4,6 +4,10 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
@@ -33,18 +37,38 @@ public class TahunAjaran {
     @JsonProperty("kurikulum")
     private String kurikulum;
 
-    @OneToMany(mappedBy = "tahunAjaran")
+    @OneToMany(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    @JoinColumns({
+            @JoinColumn(name = "id_ta", referencedColumnName = "id", insertable = false, updatable = false)
+    })
     private List<Siswa> siswa;
 
-    @OneToMany(mappedBy = "tahunAjaran")
+    @OneToMany(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    @JoinColumns({
+            @JoinColumn(name = "id_ta", referencedColumnName = "id", insertable = false, updatable = false)
+    })
     private List<Komponen> komponen;
 
-    @OneToMany(mappedBy = "tahunAjaran")
+    @OneToMany(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    @JoinColumns({
+            @JoinColumn(name = "id_ta", referencedColumnName = "id", insertable = false, updatable = false)
+    })
     private List<Transaksi> transaksi;
 
-    @OneToMany(mappedBy = "tahunAjaran")
+    @OneToMany(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    @JoinColumns({
+            @JoinColumn(name = "id_ta", referencedColumnName = "id", insertable = false, updatable = false)
+    })
     private List<TagihanSPP> tagihanSPP;
 
-    @OneToMany(mappedBy = "tahunAjaran")
+    @OneToMany(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    @JoinColumns({
+            @JoinColumn(name = "id_ta", referencedColumnName = "id", insertable = false, updatable = false)
+    })
     private List<TagihanLain> tagihanLain;
 }

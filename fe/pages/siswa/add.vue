@@ -122,7 +122,7 @@ export default {
           formData.append('foto', this.form.foto);
 
           let siswa = {
-            id_ta: 2,
+            id_ta: 1,
             nisn: this.form.nisn,
             nama_lengkap: this.form.nama_lengkap,
             tanggal_lahir: this.form.tanggal_lahir,

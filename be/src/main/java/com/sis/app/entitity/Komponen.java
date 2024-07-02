@@ -5,6 +5,10 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -35,12 +39,16 @@ public class Komponen {
 
     @Column(name = "kode_kelas")
     @JsonProperty("kode_kelas")
-    private String kodeKelas;
+    private int kodeKelas;
 
     @Column(name = "tgl_dibuat")
     @JsonProperty("tgl_dibuat")
     private LocalDate tglDibuat;
 
-    @OneToMany(mappedBy = "komponen")
+    @OneToMany(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    @JoinColumns({
+            @JoinColumn(name = "id_komponen", referencedColumnName = "id", insertable = false, updatable = false)
+    })
     private List<TagihanLain> tagihanLainList;
 }

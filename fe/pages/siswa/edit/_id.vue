@@ -129,7 +129,7 @@ export default {
 
           let siswa = {
             id: this.id,
-            id_ta: 2,
+            id_ta: 1,
             nisn: this.form.nisn,
             nama_lengkap: this.form.nama_lengkap,
             tanggal_lahir: this.form.tanggal_lahir,

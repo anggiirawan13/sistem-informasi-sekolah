@@ -4,6 +4,10 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -52,6 +56,10 @@ public class Siswa {
     @JsonProperty("status")
     private boolean status;
 
-    @OneToMany(mappedBy = "siswa")
+    @OneToMany(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    @JoinColumns({
+            @JoinColumn(name = "id_siswa", referencedColumnName = "id", insertable = false, updatable = false)
+    })
     private List<Transaksi> transaksiList;
 }
