@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 @CrossOrigin
 @RestController
 @RequestMapping("/siswa")
-public class SiswaServiceController {
+public class SiswaController {
 
     @Autowired
     private SiswaServiceImpl siswaServiceImpl;

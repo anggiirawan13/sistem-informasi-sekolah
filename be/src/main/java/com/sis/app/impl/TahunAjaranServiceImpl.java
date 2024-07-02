@@ -1,19 +1,15 @@
 package com.sis.app.impl;
 
 import com.sis.app.entitity.TahunAjaran;
-import com.sis.app.entitity.TahunAjaran;
 import com.sis.app.repo.TahunAjaranRepo;
 import com.sis.app.service.TahunAjaranService;
 import com.sis.app.web.BaseResponse;
-import com.sis.app.web.request.TahunAjaranReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 

@@ -46,7 +46,7 @@ export default {
         },
         {
           icon: "mdi-account-school-outline",
-          title: "siswa",
+          title: "Siswa",
           to: "/siswa",
         },
         {

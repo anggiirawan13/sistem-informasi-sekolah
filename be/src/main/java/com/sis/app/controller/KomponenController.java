@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @RestController
 @RequestMapping("/komponen")
-public class KomponenServiceController {
+public class KomponenController {
 
     @Autowired
     private KomponenServiceImpl komponenServiceImpl;

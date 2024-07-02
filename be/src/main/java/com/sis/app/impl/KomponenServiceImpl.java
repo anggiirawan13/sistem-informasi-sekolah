@@ -1,7 +1,6 @@
 package com.sis.app.impl;
 
 import com.sis.app.entitity.Komponen;
-import com.sis.app.entitity.Komponen;
 import com.sis.app.repo.KomponenRepo;
 import com.sis.app.service.KomponenService;
 import com.sis.app.web.BaseResponse;

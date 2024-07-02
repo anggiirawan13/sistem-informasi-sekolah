@@ -1,7 +1,6 @@
 package com.sis.app.impl;
 
 import com.sis.app.entitity.TagihanSPP;
-import com.sis.app.entitity.TagihanSPP;
 import com.sis.app.repo.TagihanSPPRepo;
 import com.sis.app.service.TagihanSPPService;
 import com.sis.app.web.BaseResponse;

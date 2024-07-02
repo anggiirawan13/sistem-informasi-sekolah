@@ -1,4 +1,4 @@
-# Cashier App
+# Sistem Informasi Sekolah
 
 ## Specification
 - Java version 17.0.10

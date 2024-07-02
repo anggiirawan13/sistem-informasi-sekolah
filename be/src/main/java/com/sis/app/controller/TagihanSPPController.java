@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @RestController
 @RequestMapping("/tagihan-spp")
-public class TagihanSPPServiceController {
+public class TagihanSPPController {
 
     @Autowired
     private TagihanSPPServiceImpl tagihanSPPServiceImpl;

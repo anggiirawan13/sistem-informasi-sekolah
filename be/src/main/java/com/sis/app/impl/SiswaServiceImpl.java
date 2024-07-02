@@ -1,7 +1,6 @@
 package com.sis.app.impl;
 
 import com.sis.app.entitity.Siswa;
-import com.sis.app.entitity.Siswa;
 import com.sis.app.repo.SiswaRepo;
 import com.sis.app.service.SiswaService;
 import com.sis.app.web.BaseResponse;

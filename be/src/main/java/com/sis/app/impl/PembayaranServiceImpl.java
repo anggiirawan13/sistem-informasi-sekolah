@@ -1,7 +1,6 @@
 package com.sis.app.impl;
 
 import com.sis.app.entitity.Pembayaran;
-import com.sis.app.entitity.Pembayaran;
 import com.sis.app.repo.PembayaranRepo;
 import com.sis.app.service.PembayaranService;
 import com.sis.app.web.BaseResponse;

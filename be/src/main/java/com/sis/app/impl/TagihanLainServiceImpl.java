@@ -1,7 +1,6 @@
 package com.sis.app.impl;
 
 import com.sis.app.entitity.TagihanLain;
-import com.sis.app.entitity.TagihanLain;
 import com.sis.app.repo.TagihanLainRepo;
 import com.sis.app.service.TagihanLainService;
 import com.sis.app.web.BaseResponse;
