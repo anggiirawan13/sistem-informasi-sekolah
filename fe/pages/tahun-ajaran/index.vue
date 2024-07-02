@@ -18,7 +18,7 @@
           <div class="d-flex mb-4">
             <v-breadcrumbs :items="breadcrumbs" class="pa-0" />
             <v-spacer></v-spacer>
-            <v-btn to="tahun-ajaran/add" :color="$vuetify.theme.themes.dark.primary" elevation="3" small
+            <v-btn to="tahun-ajaran/add" color="primary" elevation="3" small
               >Tambah <v-icon right>mdi-plus-circle</v-icon></v-btn
             >
           </div>
