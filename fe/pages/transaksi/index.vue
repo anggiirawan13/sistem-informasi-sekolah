@@ -105,7 +105,7 @@ export default {
     };
   },
   methods: {
-    gettransaksi() {
+    getTransaksi() {
       this.isLoading = true;
       const { page, itemsPerPage } = this.options;
 
@@ -135,7 +135,7 @@ export default {
       this.$axios
         .$delete(`/transaksi/${id}`)
         .then(async () => {
-          await this.gettransaksi();
+          await this.getTransaksi();
           this.alertType = "success";
           this.message = this.$t("DELETE_SUCCESS", {
             title: this.itemDelete.nama_transaksi,
@@ -159,13 +159,13 @@ export default {
   watch: {
     options: {
       handler() {
-        this.gettransaksi();
+        this.getTransaksi();
       },
       deep: true,
     },
     search: {
       handler() {
-        this.gettransaksi();
+        this.getTransaksi();
       },
     },
   },
