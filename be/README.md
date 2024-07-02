@@ -12,7 +12,7 @@
   ```
 
 ## Setup
-- Create a database named `sis` in your MySQL server.
+- Create a database named `05tple003_anggiirawan` in your MySQL server.
 - Open the `be` folder in your text editor or IDE.
 - Rename the `application.properties.sample` file to `application.properties`.
 - Update the values of `spring.datasource.username` and `spring.datasource.password` in the `application.properties` file according to your MySQL database username and password.
