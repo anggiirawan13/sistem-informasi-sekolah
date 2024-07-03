@@ -30,6 +30,12 @@
                 v-model="form.tgl_bayar"
             />
             <v-select
+                v-model="form.id_ta"
+                :items="tahun_ajaran"
+                label="Tahun Ajaran"
+                :rules="rules.tahun_ajaran"
+            ></v-select>
+            <v-select
                 label="Status"
                 :items="status"
                 :rules="rules.status"
@@ -65,12 +71,13 @@ export default {
       ],
       btnSaveDisable: false,
       message: "",
+      tahun_ajaran: [],
       status: ["Berhasil", "Pending", "Gagal"],
       form: {
         id: 0,
-        id_ta: 1,
-        id_siswa: 1,
-        id_pembayaran: 1,
+        id_ta: 0,
+        id_siswa: 0,
+        id_pembayaran: 0,
         kode_transaksi: "",
         tgl_pembayaran: "",
         status: "",
@@ -78,6 +85,7 @@ export default {
       rules: {
         kode_transaksi: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", {field: "Kode Transaksi"})],
         tgl_pembayaran: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", {field: "Tanggal Pembayaran"})],
+        tahun_ajaran: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Tahun Ajaran" })],
         status: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", {field: "Status"})],
       },
     };
@@ -126,16 +134,42 @@ export default {
             .then((res) => {
               const {data} = res;
 
-              this.form.kode_transaksi = data.kode_transaksi,
-                  this.form.tgl_pembayaran = data.tgl_pembayaran,
-                  this.form.status = data.status
+              this.form.kode_transaksi = data.kode_transaksi
+              this.form.tgl_pembayaran = data.tgl_pembayaran
+              this.form.status = data.status
+              this.form.id_pembayaran = data.id_pembayaran
+              this.form.id_siswa = data.id_siswa
+              this.form.id_ta = data.id_ta
             })
       } catch (error) {
         console.error('Error:', error);
       }
     },
+    getTahunAjaran() {
+      this.isLoading = true;
+
+      this.$axios
+          .$get(`/tahun-ajaran?page=-1&limit=-1&search=`)
+          .then((response) => {
+            const { data } = response;
+
+            data.forEach(item => {
+              this.tahun_ajaran.push({
+                text: item.periode,
+                value: item.id,
+              })
+            })
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+          .finally(() => {
+            this.isLoading = false;
+          });
+    },
   },
   async mounted() {
+    await this.getTahunAjaran();
     this.getData();
   },
 };

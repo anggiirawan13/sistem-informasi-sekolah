@@ -30,6 +30,12 @@
                 v-model="form.tgl_bayar"
             />
             <v-select
+                v-model="form.id_ta"
+                :items="tahun_ajaran"
+                label="Tahun Ajaran"
+                :rules="rules.tahun_ajaran"
+            ></v-select>
+            <v-select
                 label="Status"
                 :items="status"
                 :rules="rules.status"
@@ -65,12 +71,13 @@ export default {
       ],
       btnSaveDisable: false,
       message: "",
+      tahun_ajaran: [],
       status: ["Berhasil", "Pending", "Gagal"],
       form: {
         id: 0,
-        id_transaksi: 2,
-        id_siswa: 1,
-        id_ta: 1,
+        id_transaksi: 0,
+        id_siswa: 0,
+        id_ta: 0,
         bulan: 0,
         jml_bayar: 0,
         tgl_bayar: "",
@@ -80,6 +87,7 @@ export default {
         bulan: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Bulan" })],
         jml_bayar: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Jumlah Bayar" })],
         tgl_bayar: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Tanggal Bayar" })],
+        tahun_ajaran: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Tahun Ajaran" })],
         status: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Status" })],
       },
     };
@@ -128,17 +136,42 @@ export default {
             .then((res) => {
               const {data} = res;
 
-              this.form.bulan = data.bulan,
-                  this.form.jml_bayar = data.jml_bayar,
-                  this.form.tgl_bayar = data.tgl_bayar,
-                  this.form.status = data.status
+              this.form.bulan = data.bulan
+              this.form.jml_bayar = data.jml_bayar
+              this.form.tgl_bayar = data.tgl_bayar
+              this.form.status = data.status
+              this.form.id_transaksi = data.id_transaksi
+              this.form.id_siswa = data.id_siswa
+              this.form.id_ta = data.id_ta
             })
       } catch (error) {
         console.error('Error:', error);
       }
+    },getTahunAjaran() {
+      this.isLoading = true;
+
+      this.$axios
+          .$get(`/tahun-ajaran?page=-1&limit=-1&search=`)
+          .then((response) => {
+            const { data } = response;
+
+            data.forEach(item => {
+              this.tahun_ajaran.push({
+                text: item.periode,
+                value: item.id,
+              })
+            })
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+          .finally(() => {
+            this.isLoading = false;
+          });
     },
   },
   async mounted() {
+    await this.getTahunAjaran();
     this.getData();
   },
 };

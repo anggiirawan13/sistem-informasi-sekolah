@@ -43,6 +43,12 @@
                 :rules="rules.tgl_dibuat"
                 v-model="form.tgl_dibuat"
             />
+            <v-select
+                v-model="form.id_ta"
+                :items="tahun_ajaran"
+                label="Tahun Ajaran"
+                :rules="rules.tahun_ajaran"
+            ></v-select>
           </v-form>
         </v-card-text>
         <v-card-actions>
@@ -68,8 +74,9 @@ export default {
       ],
       btnSaveDisable: false,
       message: "",
+      tahun_ajaran: [],
       form: {
-        id_ta: 1,
+        id_ta: 0,
         kode_komponen: "",
         nama_komponen: "",
         biaya: 0,
@@ -82,6 +89,7 @@ export default {
         biaya: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Biaya" })],
         kode_kelas: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Kode Kelas" })],
         tgl_dibuat: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Tanggal Dibuat" })],
+        tahun_ajaran: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Tahun Ajaran" })],
       },
     };
   },
@@ -121,7 +129,32 @@ export default {
           this.btnSaveDisable = false;
         }
       }
-    }
+    },
+    getTahunAjaran() {
+      this.isLoading = true;
+
+      this.$axios
+          .$get(`/tahun-ajaran?page=-1&limit=-1&search=`)
+          .then((response) => {
+            const { data } = response;
+
+            data.forEach(item => {
+              this.tahun_ajaran.push({
+                text: item.periode,
+                value: item.id,
+              })
+            })
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+          .finally(() => {
+            this.isLoading = false;
+          });
+    },
   },
+  mounted() {
+    this.getTahunAjaran()
+  }
 };
 </script>

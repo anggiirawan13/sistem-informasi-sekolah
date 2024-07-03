@@ -29,6 +29,12 @@
                 :rules="rules.metode_bayar"
                 v-model="form.metode_bayar"
             />
+            <v-select
+                v-model="form.id_ta"
+                :items="tahun_ajaran"
+                label="Tahun Ajaran"
+                :rules="rules.tahun_ajaran"
+            ></v-select>
           </v-form>
         </v-card-text>
         <v-card-actions>
@@ -59,10 +65,11 @@ export default {
       ],
       btnSaveDisable: false,
       message: "",
+      tahun_ajaran: [],
       form: {
         id: 0,
-        id_ta: 2,
-        id_siswa: 3,
+        id_ta: 0,
+        id_siswa: 0,
         tgl_pembayaran: "",
         jumlah_bayar: "",
         metode_bayar: "",
@@ -71,6 +78,7 @@ export default {
         tgl_pembayaran: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Tanggal Pembayaran" })],
         jumlah_bayar: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Jumlah Bayar" })],
         metode_bayar: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Metode Bayar" })],
+        tahun_ajaran: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Tahun Ajaran" })],
       },
     };
   },
@@ -121,14 +129,39 @@ export default {
               this.form.tgl_pembayaran = data.tgl_pembayaran
               this.form.jumlah_bayar = data.jumlah_bayar
               this.form.metode_bayar = data.metode_bayar
+              this.form.id_ta = data.id_ta
+              this.form.id_siswa = data.id_siswa
             })
       } catch (error) {
         console.error('Error:', error);
       }
     },
-  },
-    mounted() {
-      this.getData();
+    getTahunAjaran() {
+      this.isLoading = true;
+
+      this.$axios
+          .$get(`/tahun-ajaran?page=-1&limit=-1&search=`)
+          .then((response) => {
+            const { data } = response;
+
+            data.forEach(item => {
+              this.tahun_ajaran.push({
+                text: item.periode,
+                value: item.id,
+              })
+            })
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+          .finally(() => {
+            this.isLoading = false;
+          });
     },
+  },
+  async mounted() {
+    await this.getTahunAjaran();
+    this.getData();
+  },
 };
 </script>

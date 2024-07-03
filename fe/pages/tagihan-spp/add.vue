@@ -30,6 +30,12 @@
                 v-model="form.tgl_bayar"
             />
             <v-select
+                v-model="form.id_ta"
+                :items="tahun_ajaran"
+                label="Tahun Ajaran"
+                :rules="rules.tahun_ajaran"
+            ></v-select>
+            <v-select
                 label="Status"
                 :items="status"
                 :rules="rules.status"
@@ -60,11 +66,12 @@ export default {
       ],
       btnSaveDisable: false,
       message: "",
+      tahun_ajaran: [],
       status: ["Berhasil", "Pending", "Gagal"],
       form: {
         id_transaksi: 2,
         id_siswa: 1,
-        id_ta: 1,
+        id_ta: 0,
         bulan: 0,
         jml_bayar: 0,
         tgl_bayar: "",
@@ -74,6 +81,7 @@ export default {
         bulan: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Bulan" })],
         jml_bayar: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Jumlah Bayar" })],
         tgl_bayar: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Tanggal Bayar" })],
+        tahun_ajaran: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Tahun Ajaran" })],
         status: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Status" })],
       },
     };
@@ -114,7 +122,32 @@ export default {
           this.btnSaveDisable = false;
         }
       }
-    }
+    },
+    getTahunAjaran() {
+      this.isLoading = true;
+
+      this.$axios
+          .$get(`/tahun-ajaran?page=-1&limit=-1&search=`)
+          .then((response) => {
+            const { data } = response;
+
+            data.forEach(item => {
+              this.tahun_ajaran.push({
+                text: item.periode,
+                value: item.id,
+              })
+            })
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+          .finally(() => {
+            this.isLoading = false;
+          });
+    },
   },
+  mounted() {
+    this.getTahunAjaran()
+  }
 };
 </script>

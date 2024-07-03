@@ -58,6 +58,12 @@
                 accept="image/*"
             />
             <v-select
+                v-model="form.id_ta"
+                :items="tahun_ajaran"
+                label="Tahun Ajaran"
+                :rules="rules.tahun_ajaran"
+            ></v-select>
+            <v-select
             label="Status"
             :items="status"
             :rules="rules.status"
@@ -88,6 +94,7 @@ export default {
       ],
       btnSaveDisable: false,
       message: "",
+      tahun_ajaran: [],
       status: ["Active", "Inactive"],
       form: {
         nisn: "",
@@ -96,6 +103,7 @@ export default {
         alamat: "",
         nama_ortu: "",
         telp: "",
+        id_ta: 0,
         status: "",
       },
       rules: {
@@ -106,6 +114,7 @@ export default {
         nama_ortu: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Nama Orang Tua" })],
         telp: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Nomor Telepon" })],
         foto: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Foto" })],
+        tahun_ajaran: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Tahun Ajaran" })],
         status: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Status" })],
       },
     };
@@ -122,7 +131,7 @@ export default {
           formData.append('foto', this.form.foto);
 
           let siswa = {
-            id_ta: 1,
+            id_ta: this.form.id_ta,
             nisn: this.form.nisn,
             nama_lengkap: this.form.nama_lengkap,
             tanggal_lahir: this.form.tanggal_lahir,
@@ -168,7 +177,32 @@ export default {
           this.btnSaveDisable = false;
         }
       }
-    }
+    },
+    getTahunAjaran() {
+      this.isLoading = true;
+
+      this.$axios
+          .$get(`/tahun-ajaran?page=-1&limit=-1&search=`)
+          .then((response) => {
+            const { data } = response;
+
+            data.forEach(item => {
+              this.tahun_ajaran.push({
+                text: item.periode,
+                value: item.id,
+              })
+            })
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+          .finally(() => {
+            this.isLoading = false;
+          });
+    },
   },
+  mounted() {
+    this.getTahunAjaran()
+  }
 };
 </script>

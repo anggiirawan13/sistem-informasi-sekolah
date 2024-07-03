@@ -29,6 +29,12 @@
                 :rules="rules.metode_bayar"
                 v-model="form.metode_bayar"
             />
+            <v-select
+                v-model="form.id_ta"
+                :items="tahun_ajaran"
+                label="Tahun Ajaran"
+                :rules="rules.tahun_ajaran"
+            ></v-select>
           </v-form>
         </v-card-text>
         <v-card-actions>
@@ -55,7 +61,7 @@ export default {
       btnSaveDisable: false,
       message: "",
       form: {
-        id_ta: 2,
+        id_ta: 0,
         id_siswa: 3,
         tgl_pembayaran: "",
         jumlah_bayar: "",
@@ -65,6 +71,7 @@ export default {
         tgl_pembayaran: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Tanggal Pembayaran" })],
         jumlah_bayar: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Jumlah Bayar" })],
         metode_bayar: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Metode Bayar" })],
+        tahun_ajaran: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Tahun Ajaran" })],
       },
       editedItem: null,
     };
@@ -105,7 +112,32 @@ export default {
           this.btnSaveDisable = false;
         }
       }
-    }
+    },
+    getTahunAjaran() {
+      this.isLoading = true;
+
+      this.$axios
+          .$get(`/tahun-ajaran?page=-1&limit=-1&search=`)
+          .then((response) => {
+            const { data } = response;
+
+            data.forEach(item => {
+              this.tahun_ajaran.push({
+                text: item.periode,
+                value: item.id,
+              })
+            })
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+          .finally(() => {
+            this.isLoading = false;
+          });
+    },
   },
+  mounted() {
+    this.getTahunAjaran()
+  }
 };
 </script>
