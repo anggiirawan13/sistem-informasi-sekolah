@@ -223,6 +223,7 @@ export default {
     this.getTahunAjaran()
     this.getSiswa()
     this.getTransaksi()
+    this.getKomponen()
   }
 };
 </script>
