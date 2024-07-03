@@ -181,9 +181,9 @@ export default {
           .$get(`/pembayaran?page=-1&limit=-1&search=`)
           .then((response) => {
             const { data } = response;
-
+            
             data.forEach(item => {
-              this.siswa.push({
+              this.pembayaran.push({
                 text: item.tgl_pembayaran,
                 value: item.id,
               })
