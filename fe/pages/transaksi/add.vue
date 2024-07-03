@@ -29,6 +29,18 @@
                 :rules="rules.tahun_ajaran"
             ></v-select>
             <v-select
+                v-model="form.id_siswa"
+                :items="siswa"
+                label="Siswa"
+                :rules="rules.siswa"
+            ></v-select>
+            <v-select
+                v-model="form.id_pembayaran"
+                :items="pembayaran"
+                label="Pembayaran"
+                :rules="rules.pembayaran"
+            ></v-select>
+            <v-select
                 label="Status"
                 :items="status"
                 :rules="rules.status"
@@ -60,11 +72,13 @@ export default {
       btnSaveDisable: false,
       message: "",
       tahun_ajaran: [],
+      siswa: [],
+      pembayaran: [],
       status: ["Berhasil", "Pending", "Gagal"],
       form: {
         id_ta: 0,
-        id_siswa: 1,
-        id_pembayaran: 1,
+        id_siswa: 0,
+        id_pembayaran: 0,
         kode_transaksi: "",
         tgl_pembayaran: "",
         status: "",
@@ -73,6 +87,8 @@ export default {
         kode_transaksi: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Kode Transaksi" })],
         tgl_pembayaran: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Tanggal Pembayaran" })],
         tahun_ajaran: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Tahun Ajaran" })],
+        siswa: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Siswa" })],
+        pembayaran: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Pembayaran" })],
         status: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Status" })],
       },
     };
@@ -136,9 +152,55 @@ export default {
             this.isLoading = false;
           });
     },
+    getSiswa() {
+      this.isLoading = true;
+
+      this.$axios
+          .$get(`/siswa?page=-1&limit=-1&search=`)
+          .then((response) => {
+            const { data } = response;
+
+            data.forEach(item => {
+              this.siswa.push({
+                text: item.nama_lengkap,
+                value: item.id,
+              })
+            })
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+          .finally(() => {
+            this.isLoading = false;
+          });
+    },
+    getPembayaran() {
+      this.isLoading = true;
+
+      this.$axios
+          .$get(`/pembayaran?page=-1&limit=-1&search=`)
+          .then((response) => {
+            const { data } = response;
+
+            data.forEach(item => {
+              this.siswa.push({
+                text: item.tgl_pembayaran,
+                value: item.id,
+              })
+            })
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+          .finally(() => {
+            this.isLoading = false;
+          });
+    },
   },
   mounted() {
     this.getTahunAjaran()
+    this.getSiswa()
+    this.getPembayaran()
   }
 };
 </script>

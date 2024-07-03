@@ -36,6 +36,18 @@
                 :rules="rules.tahun_ajaran"
             ></v-select>
             <v-select
+                v-model="form.id_siswa"
+                :items="siswa"
+                label="Siswa"
+                :rules="rules.siswa"
+            ></v-select>
+            <v-select
+                v-model="form.id_transaksi"
+                :items="transaksi"
+                label="Transaksi"
+                :rules="rules.transaksi"
+            ></v-select>
+            <v-select
                 label="Status"
                 :items="status"
                 :rules="rules.status"
@@ -67,10 +79,12 @@ export default {
       btnSaveDisable: false,
       message: "",
       tahun_ajaran: [],
+      siswa: [],
+      transaksi: [],
       status: ["Berhasil", "Pending", "Gagal"],
       form: {
-        id_transaksi: 2,
-        id_siswa: 1,
+        id_transaksi: 0,
+        id_siswa: 0,
         id_ta: 0,
         bulan: 0,
         jml_bayar: 0,
@@ -82,6 +96,8 @@ export default {
         jml_bayar: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Jumlah Bayar" })],
         tgl_bayar: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Tanggal Bayar" })],
         tahun_ajaran: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Tahun Ajaran" })],
+        siswa: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Siswa" })],
+        transaksi: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Transaksi" })],
         status: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Status" })],
       },
     };
@@ -145,9 +161,55 @@ export default {
             this.isLoading = false;
           });
     },
+    getSiswa() {
+      this.isLoading = true;
+
+      this.$axios
+          .$get(`/siswa?page=-1&limit=-1&search=`)
+          .then((response) => {
+            const { data } = response;
+
+            data.forEach(item => {
+              this.siswa.push({
+                text: item.nama_lengkap,
+                value: item.id,
+              })
+            })
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+          .finally(() => {
+            this.isLoading = false;
+          });
+    },
+    getTransaksi() {
+      this.isLoading = true;
+
+      this.$axios
+          .$get(`/transaksi?page=-1&limit=-1&search=`)
+          .then((response) => {
+            const { data } = response;
+
+            data.forEach(item => {
+              this.transaksi.push({
+                text: item.kode_transaksi,
+                value: item.id,
+              })
+            })
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+          .finally(() => {
+            this.isLoading = false;
+          });
+    },
   },
   mounted() {
     this.getTahunAjaran()
+    this.getSiswa()
+    this.getTransaksi()
   }
 };
 </script>
