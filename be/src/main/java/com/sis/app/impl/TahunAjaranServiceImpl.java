@@ -4,6 +4,7 @@ import com.sis.app.entitity.TahunAjaran;
 import com.sis.app.repo.TahunAjaranRepo;
 import com.sis.app.service.TahunAjaranService;
 import com.sis.app.web.BaseResponse;
+import com.sis.constanta.ResponseMessageConst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,27 +37,27 @@ public class TahunAjaranServiceImpl implements TahunAjaranService {
             addEntity.put("number", tahunAjaranPage.getNumber());
         }
 
-        return new BaseResponse(true, "", tahunAjaran, addEntity);
+        return new BaseResponse(true, ResponseMessageConst.GET_SUCCESS.toString(), tahunAjaran, addEntity);
     }
 
     @Override
     public BaseResponse getTahunAjaranById(String id) {
-        return new BaseResponse(true, "", tahunAjaranRepo.findById(Integer.valueOf(id)).orElse(null));
+        return new BaseResponse(true, ResponseMessageConst.GET_SUCCESS.toString(), tahunAjaranRepo.findById(Integer.valueOf(id)).orElse(null));
     }
 
     @Override
     public BaseResponse saveTahunAjaran(TahunAjaran tahunAjaran) {
-        return new BaseResponse(true, "", tahunAjaranRepo.save(tahunAjaran));
+        return new BaseResponse(true, ResponseMessageConst.ADD_SUCCESS.toString(), tahunAjaranRepo.save(tahunAjaran));
     }
 
     @Override
     public BaseResponse updateTahunAjaran(TahunAjaran tahunAjaran) {
-        return new BaseResponse(true, "", tahunAjaranRepo.save(tahunAjaran));
+        return new BaseResponse(true, ResponseMessageConst.UPDATE_SUCCESS.toString(), tahunAjaranRepo.save(tahunAjaran));
     }
 
     @Override
     public BaseResponse deleteTahunAjaran(String id) {
         tahunAjaranRepo.deleteById(Integer.valueOf(id));
-        return new BaseResponse(true, "", null);
+        return new BaseResponse(true, ResponseMessageConst.DELETE_SUCCESS.toString(), null);
     }
 }

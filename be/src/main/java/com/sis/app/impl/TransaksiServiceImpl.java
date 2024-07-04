@@ -4,6 +4,7 @@ import com.sis.app.entitity.Transaksi;
 import com.sis.app.repo.TransaksiRepo;
 import com.sis.app.service.TransaksiService;
 import com.sis.app.web.BaseResponse;
+import com.sis.constanta.ResponseMessageConst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,27 +37,27 @@ public class TransaksiServiceImpl implements TransaksiService {
             addEntity.put("number", transaksiPage.getNumber());
         }
 
-        return new BaseResponse(true, "", transaksi, addEntity);
+        return new BaseResponse(true, ResponseMessageConst.GET_SUCCESS.toString(), transaksi, addEntity);
     }
 
     @Override
     public BaseResponse getTransaksiById(String id) {
-        return new BaseResponse(true, "", transaksiRepo.findById(Integer.valueOf(id)).orElse(null));
+        return new BaseResponse(true, ResponseMessageConst.GET_SUCCESS.toString(), transaksiRepo.findById(Integer.valueOf(id)).orElse(null));
     }
 
     @Override
     public BaseResponse saveTransaksi(Transaksi transaksi) {
-        return new BaseResponse(true, "", transaksiRepo.save(transaksi));
+        return new BaseResponse(true, ResponseMessageConst.ADD_SUCCESS.toString(), transaksiRepo.save(transaksi));
     }
 
     @Override
     public BaseResponse updateTransaksi(Transaksi transaksi) {
-        return new BaseResponse(true, "", transaksiRepo.save(transaksi));
+        return new BaseResponse(true, ResponseMessageConst.UPDATE_SUCCESS.toString(), transaksiRepo.save(transaksi));
     }
 
     @Override
     public BaseResponse deleteTransaksi(String id) {
         transaksiRepo.deleteById(Integer.valueOf(id));
-        return new BaseResponse(true, "", null);
+        return new BaseResponse(true, ResponseMessageConst.DELETE_SUCCESS.toString(), null);
     }
 }

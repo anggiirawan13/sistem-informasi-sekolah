@@ -4,6 +4,7 @@ import com.sis.app.entitity.Siswa;
 import com.sis.app.repo.SiswaRepo;
 import com.sis.app.service.SiswaService;
 import com.sis.app.web.BaseResponse;
+import com.sis.constanta.ResponseMessageConst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -42,12 +43,12 @@ public class SiswaServiceImpl implements SiswaService {
             addEntity.put("number", siswaPage.getNumber());
         }
 
-        return new BaseResponse(true, "", siswa, addEntity);
+        return new BaseResponse(true, ResponseMessageConst.GET_SUCCESS.toString(), siswa, addEntity);
     }
 
     @Override
     public BaseResponse getSiswaById(String id) {
-        return new BaseResponse(true, "", siswaRepo.findById(Integer.valueOf(id)).orElse(null));
+        return new BaseResponse(true, ResponseMessageConst.GET_SUCCESS.toString(), siswaRepo.findById(Integer.valueOf(id)).orElse(null));
     }
 
     @Override
@@ -71,9 +72,9 @@ public class SiswaServiceImpl implements SiswaService {
 
             siswa.setFoto(fullPathFoto);
 
-            return new BaseResponse(true, "", siswaRepo.save(siswa));
+            return new BaseResponse(true, ResponseMessageConst.ADD_SUCCESS.toString(), siswaRepo.save(siswa));
         } catch (Exception e) {
-            return new BaseResponse(true, "", siswaRepo.save(siswa));
+            return new BaseResponse(true, ResponseMessageConst.ADD_FAILED.toString(), siswaRepo.save(siswa));
         }
     }
 
@@ -97,15 +98,15 @@ public class SiswaServiceImpl implements SiswaService {
 
             siswa.setFoto(fullPathFoto);
 
-            return new BaseResponse(true, "", siswaRepo.save(siswa));
+            return new BaseResponse(true, ResponseMessageConst.UPDATE_SUCCESS.toString(), siswaRepo.save(siswa));
         } catch (Exception e) {
-            return new BaseResponse(true, "", siswaRepo.save(siswa));
+            return new BaseResponse(true, ResponseMessageConst.UPDATE_FAILED.toString(), siswaRepo.save(siswa));
         }
     }
 
     @Override
     public BaseResponse deleteSiswa(String id) {
         siswaRepo.deleteById(Integer.valueOf(id));
-        return new BaseResponse(true, "", null);
+        return new BaseResponse(true, ResponseMessageConst.DELETE_SUCCESS.toString(), null);
     }
 }

@@ -103,7 +103,7 @@ export default {
                   name: `tahun-ajaran___${this.$i18n.locale}`,
                   params: {
                     type: "success",
-                    message: "UPDATE_SUCCESS",
+                    message: res.messages,
                     title: this.form.kurikulum,
                   },
                 });
@@ -113,7 +113,7 @@ export default {
                   name: `tahun-ajaran___${this.$i18n.locale}`,
                   params: {
                     type: "error",
-                    message: "UPDATE_FAILED",
+                    message: err.messages,
                     title: this.form.kurikulum,
                   },
                 });

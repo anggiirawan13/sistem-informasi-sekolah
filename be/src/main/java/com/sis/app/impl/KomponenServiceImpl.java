@@ -4,6 +4,7 @@ import com.sis.app.entitity.Komponen;
 import com.sis.app.repo.KomponenRepo;
 import com.sis.app.service.KomponenService;
 import com.sis.app.web.BaseResponse;
+import com.sis.constanta.ResponseMessageConst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,27 +37,27 @@ public class KomponenServiceImpl implements KomponenService {
             addEntity.put("number", komponenPage.getNumber());
         }
 
-        return new BaseResponse(true, "", komponen, addEntity);
+        return new BaseResponse(true, ResponseMessageConst.GET_SUCCESS.toString(), komponen, addEntity);
     }
 
     @Override
     public BaseResponse getKomponenById(String id) {
-        return new BaseResponse(true, "", komponenRepo.findById(Integer.valueOf(id)).orElse(null));
+        return new BaseResponse(true, ResponseMessageConst.GET_SUCCESS.toString(), komponenRepo.findById(Integer.valueOf(id)).orElse(null));
     }
 
     @Override
     public BaseResponse saveKomponen(Komponen komponen) {
-        return new BaseResponse(true, "", komponenRepo.save(komponen));
+        return new BaseResponse(true, ResponseMessageConst.ADD_SUCCESS.toString(), komponenRepo.save(komponen));
     }
 
     @Override
     public BaseResponse updateKomponen(Komponen komponen) {
-        return new BaseResponse(true, "", komponenRepo.save(komponen));
+        return new BaseResponse(true, ResponseMessageConst.UPDATE_SUCCESS.toString(), komponenRepo.save(komponen));
     }
 
     @Override
     public BaseResponse deleteKomponen(String id) {
         komponenRepo.deleteById(Integer.valueOf(id));
-        return new BaseResponse(true, "", null);
+        return new BaseResponse(true, ResponseMessageConst.DELETE_SUCCESS.toString(), null);
     }
 }

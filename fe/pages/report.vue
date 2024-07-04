@@ -58,12 +58,12 @@ export default {
   methods: {
     async fetchData() {
       try {
-        const [siswaResponse, mataKuliahResponse] = await Promise.all([
+        const [siswares, mataKuliahres] = await Promise.all([
           this.$axios.$get('/siswa'),
         ]);
 
-        this.siswaList = siswaResponse.data;
-        this.mataKuliahList = mataKuliahResponse.data;
+        this.siswaList = siswares.data;
+        this.mataKuliahList = mataKuliahres.data;
       } catch (error) {
         console.error('Error fetching data:', error);
       }

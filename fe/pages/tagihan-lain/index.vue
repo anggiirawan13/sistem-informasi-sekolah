@@ -110,15 +110,15 @@ export default {
 
       this.$axios
         .$get(`/tagihan-lain?page=${page - 1}&limit=${itemsPerPage}&search=${this.search}`)
-        .then((response) => {
+        .then((res) => {
           this.tagihan_lain = [];
           this.totalData = 0;
 
-          if (response.success) {
-            this.tagihan_lain = response.data;
-            this.totalData = response.additionalEntity.totalData;
+          if (res.success) {
+            this.tagihan_lain = res.data;
+            this.totalData = res.additionalEntity.totalData;
 
-            let i = response.additionalEntity.number * itemsPerPage + 1;
+            let i = res.additionalEntity.number * itemsPerPage + 1;
             i = isNaN(i) ? 1 : i;
             this.tagihan_lain.map((item) => (item.number = i++));
           }

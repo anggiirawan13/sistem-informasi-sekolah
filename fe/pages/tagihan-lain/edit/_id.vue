@@ -90,7 +90,7 @@ export default {
                   name: `tagihan-lain___${this.$i18n.locale}`,
                   params: {
                     type: "success",
-                    message: "ADD_SUCCESS",
+                    message: res.messages,
                     title: this.form.tgl_bayar,
                   },
                 });
@@ -100,7 +100,7 @@ export default {
                   name: `tagihan-lain___${this.$i18n.locale}`,
                   params: {
                     type: "error",
-                    message: "ADD_FAILED",
+                    message: err.messages,
                     title: this.form.tgl_bayar,
                   },
                 });
@@ -137,8 +137,8 @@ export default {
 
       this.$axios
           .$get(`/tahun-ajaran?page=-1&limit=-1&search=`)
-          .then((response) => {
-            const { data } = response;
+          .then((res) => {
+            const { data } = res;
 
             data.forEach(item => {
               this.tahun_ajaran.push({

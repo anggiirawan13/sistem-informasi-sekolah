@@ -111,19 +111,19 @@ export default {
 
       this.$axios
         .$get(`/tagihan-spp?page=${page - 1}&limit=${itemsPerPage}&search=${this.search}`)
-        .then((response) => {
+        .then((res) => {
           this.tagihan_spp = [];
           this.totalData = 0;
 
-          if (response.success) {
-            this.tagihan_spp = response.data;
-            this.totalData = response.additionalEntity.totalData;
+          if (res.success) {
+            this.tagihan_spp = res.data;
+            this.totalData = res.additionalEntity.totalData;
 
-            let i = response.additionalEntity.number * itemsPerPage + 1;
+            let i = res.additionalEntity.number * itemsPerPage + 1;
             i = isNaN(i) ? 1 : i;
             this.tagihan_spp.map((item) => (item.number = i++));
           }
-          console.log(response)
+          console.log(res)
         })
         .catch((error) => {
           console.log(error);

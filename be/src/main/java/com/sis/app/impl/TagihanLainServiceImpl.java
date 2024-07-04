@@ -4,6 +4,7 @@ import com.sis.app.entitity.TagihanLain;
 import com.sis.app.repo.TagihanLainRepo;
 import com.sis.app.service.TagihanLainService;
 import com.sis.app.web.BaseResponse;
+import com.sis.constanta.ResponseMessageConst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,27 +37,27 @@ public class TagihanLainServiceImpl implements TagihanLainService {
             addEntity.put("number", tagihanLainPage.getNumber());
         }
 
-        return new BaseResponse(true, "", tagihanLain, addEntity);
+        return new BaseResponse(true, ResponseMessageConst.GET_SUCCESS.toString(), tagihanLain, addEntity);
     }
 
     @Override
     public BaseResponse getTagihanLainById(String id) {
-        return new BaseResponse(true, "", tagihanLainRepo.findById(Integer.valueOf(id)).orElse(null));
+        return new BaseResponse(true, ResponseMessageConst.GET_SUCCESS.toString(), tagihanLainRepo.findById(Integer.valueOf(id)).orElse(null));
     }
 
     @Override
     public BaseResponse saveTagihanLain(TagihanLain tagihanLain) {
-        return new BaseResponse(true, "", tagihanLainRepo.save(tagihanLain));
+        return new BaseResponse(true, ResponseMessageConst.ADD_SUCCESS.toString(), tagihanLainRepo.save(tagihanLain));
     }
 
     @Override
     public BaseResponse updateTagihanLain(TagihanLain tagihanLain) {
-        return new BaseResponse(true, "", tagihanLainRepo.save(tagihanLain));
+        return new BaseResponse(true, ResponseMessageConst.UPDATE_SUCCESS.toString(), tagihanLainRepo.save(tagihanLain));
     }
 
     @Override
     public BaseResponse deleteTagihanLain(String id) {
         tagihanLainRepo.deleteById(Integer.valueOf(id));
-        return new BaseResponse(true, "", null);
+        return new BaseResponse(true, ResponseMessageConst.DELETE_SUCCESS.toString(), null);
     }
 }

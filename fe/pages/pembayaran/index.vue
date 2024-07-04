@@ -111,15 +111,15 @@ export default {
 
       this.$axios
         .$get(`/pembayaran?page=${page - 1}&limit=${itemsPerPage}&search=${this.search}`)
-        .then((response) => {
+        .then((res) => {
           this.pembayaran = [];
           this.totalData = 0;
 
-          if (response.success) {
-            this.pembayaran = response.data;
-            this.totalData = response.additionalEntity.totalData;
+          if (res.success) {
+            this.pembayaran = res.data;
+            this.totalData = res.additionalEntity.totalData;
 
-            let i = response.additionalEntity.number * itemsPerPage + 1;
+            let i = res.additionalEntity.number * itemsPerPage + 1;
             i = isNaN(i) ? 1 : i;
             this.pembayaran.map((item) => (item.number = i++));
           }

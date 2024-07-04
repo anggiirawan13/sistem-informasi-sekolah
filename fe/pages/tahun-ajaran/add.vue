@@ -96,7 +96,7 @@ export default {
               name: `tahun-ajaran___${this.$i18n.locale}`,
               params: {
                 type: "success",
-                message: "ADD_SUCCESS",
+                message: res.messages,
                 title: this.form.kurikulum,
               },
             });
@@ -106,7 +106,7 @@ export default {
               name: `tahun-ajaran___${this.$i18n.locale}`,
               params: {
                 type: "error",
-                message: "ADD_FAILED",
+                message: err.messages,
                 title: this.form.kurikulum,
               },
             });

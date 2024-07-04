@@ -111,15 +111,15 @@ export default {
 
       this.$axios
         .$get(`/transaksi?page=${page - 1}&limit=${itemsPerPage}&search=${this.search}`)
-        .then((response) => {
+        .then((res) => {
           this.transaksi = [];
           this.totalData = 0;
 
-          if (response.success) {
-            this.transaksi = response.data;
-            this.totalData = response.additionalEntity.totalData;
+          if (res.success) {
+            this.transaksi = res.data;
+            this.totalData = res.additionalEntity.totalData;
 
-            let i = response.additionalEntity.number * itemsPerPage + 1;
+            let i = res.additionalEntity.number * itemsPerPage + 1;
             i = isNaN(i) ? 1 : i;
             this.transaksi.map((item) => (item.number = i++));
           }
