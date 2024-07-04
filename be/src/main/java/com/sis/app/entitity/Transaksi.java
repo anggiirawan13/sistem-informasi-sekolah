@@ -11,6 +11,7 @@ import java.util.List;
 
 @Data
 @Entity
+@Table(name = "transaksi")
 public class Transaksi {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
