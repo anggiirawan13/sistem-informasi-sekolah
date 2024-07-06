@@ -3,37 +3,42 @@
     <!-- Input Fields -->
     <v-col cols="10" offset="1">
       <v-card class="mb-2">
-        <v-toolbar :color="$vuetify.theme.themes.dark.primary" dark >UBAH TAGIHAN SPP</v-toolbar>
+        <v-toolbar :color="$vuetify.theme.themes.dark.primary" dark >UBAH TRANSAKSI</v-toolbar>
         <v-card-text>
           <v-alert v-if="message" color="red lighten-2" >{{ $t(message) }}</v-alert>
           <v-breadcrumbs :items="breadcrumbs" class="pa-0"></v-breadcrumbs>
           <v-form ref="form">
             <v-text-field
-                name="bulan"
+                name="kode_transaksi"
                 label="Kode Transaksi"
-                type="number"
-                :rules="rules.bulan"
-                v-model="form.bulan"
+                type="text"
+                :rules="rules.kode_transaksi"
+                v-model="form.kode_transaksi"
             />
             <v-text-field
-                name="jml_bayar"
-                label="Jumlah Bayar"
-                type="number"
-                :rules="rules.jml_bayar"
-                v-model="form.jml_bayar"
-            />
-            <v-text-field
-                name="tgl_bayar"
-                label="Tanggal Bayar"
+                name="tgl_pembayaran"
+                label="Tanggal Transaksi"
                 type="date"
-                :rules="rules.tgl_bayar"
-                v-model="form.tgl_bayar"
+                :rules="rules.tgl_pembayaran"
+                v-model="form.tgl_pembayaran"
             />
             <v-select
                 v-model="form.id_ta"
                 :items="tahun_ajaran"
                 label="Tahun Ajaran"
                 :rules="rules.tahun_ajaran"
+            ></v-select>
+            <v-select
+                v-model="form.id_siswa"
+                :items="siswa"
+                label="Siswa"
+                :rules="rules.siswa"
+            ></v-select>
+            <v-select
+                v-model="form.id_pembayaran"
+                :items="pembayaran"
+                label="Pembayaran"
+                :rules="rules.pembayaran"
             ></v-select>
             <v-select
                 label="Status"
@@ -44,7 +49,7 @@
           </v-form>
         </v-card-text>
         <v-card-actions>
-          <v-btn to="/tagihan-spp" :color="$vuetify.theme.themes.dark.accent" dark>Back</v-btn>
+          <v-btn to="/transaksi" :color="$vuetify.theme.themes.dark.accent" dark>Back</v-btn>
           <v-spacer />
           <v-btn @click="doSave" :color="$vuetify.theme.themes.dark.secondary" dark :loading="btnSaveDisable">Save</v-btn>
         </v-card-actions>
@@ -56,7 +61,7 @@
 <script>
 export default {
   head: {
-    title: "Ubah Tagihan SPP",
+    title: "Tambah Transaksi",
   },
   asyncData({ params }) {
     return {
@@ -66,15 +71,16 @@ export default {
   data() {
     return {
       breadcrumbs: [
-        {text: "Tagihan SPP", to: "/tagihan-spp", disabled: false, exact: true},
-        {text: "Ubah", disabled: true},
+        { text: "Transaksi", to: "/transaksi", disabled: false, exact: true },
+        { text: "Ubah", disabled: true },
       ],
       btnSaveDisable: false,
       message: "",
       tahun_ajaran: [],
+      siswa: [],
+      pembayaran: [],
       status: ["Berhasil", "Pending", "Gagal"],
       form: {
-        id: 0,
         id_ta: 0,
         id_siswa: 0,
         id_pembayaran: 0,
@@ -83,10 +89,12 @@ export default {
         status: "",
       },
       rules: {
-        kode_transaksi: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", {field: "Kode Transaksi"})],
-        tgl_pembayaran: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", {field: "Tanggal Pembayaran"})],
+        kode_transaksi: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Kode Transaksi" })],
+        tgl_pembayaran: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Tanggal Pembayaran" })],
         tahun_ajaran: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Tahun Ajaran" })],
-        status: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", {field: "Status"})],
+        siswa: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Siswa" })],
+        pembayaran: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Pembayaran" })],
+        status: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Status" })],
       },
     };
   },
@@ -98,7 +106,6 @@ export default {
         this.btnSaveDisable = true;
 
         try {
-          this.form.id = this.id
           this.$axios.$put("/transaksi", this.form)
               .then((res) => {
                 this.$router.push({
@@ -128,23 +135,6 @@ export default {
         }
       }
     },
-    getData() {
-      try {
-        this.$axios.$get(`/transaksi/${this.id}`)
-            .then((res) => {
-              const {data} = res;
-
-              this.form.kode_transaksi = data.kode_transaksi
-              this.form.tgl_pembayaran = data.tgl_pembayaran
-              this.form.status = data.status
-              this.form.id_pembayaran = data.id_pembayaran
-              this.form.id_siswa = data.id_siswa
-              this.form.id_ta = data.id_ta
-            })
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    },
     getTahunAjaran() {
       this.isLoading = true;
 
@@ -167,10 +157,72 @@ export default {
             this.isLoading = false;
           });
     },
+    getSiswa() {
+      this.isLoading = true;
+
+      this.$axios
+          .$get(`/siswa?page=-1&limit=-1&search=`)
+          .then((res) => {
+            const { data } = res;
+
+            data.forEach(item => {
+              this.siswa.push({
+                text: item.nama_lengkap,
+                value: item.id,
+              })
+            })
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+          .finally(() => {
+            this.isLoading = false;
+          });
+    },
+    getPembayaran() {
+      this.isLoading = true;
+
+      this.$axios
+          .$get(`/pembayaran?page=-1&limit=-1&search=`)
+          .then((res) => {
+            const { data } = res;
+
+            data.forEach(item => {
+              this.pembayaran.push({
+                text: item.tgl_pembayaran,
+                value: item.id,
+              })
+            })
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+          .finally(() => {
+            this.isLoading = false;
+          });
+    },
+    getData() {
+      try {
+        this.$axios.$get(`/transaksi/${this.id}`)
+            .then((res) => {
+              const { data } = res;
+              this.form.id_ta = data.id_ta
+                  this.form.id_siswa = data.id_siswa
+                  this.form.id_pembayaran = data.id_pembayaran
+                  this.form.kode_transaksi = data.kode_transaksi
+                  this.form.tgl_pembayaran = data.tgl_pembayaran
+                  this.form.status = data.status
+            })
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    },
   },
   async mounted() {
-    await this.getTahunAjaran();
-    this.getData();
-  },
+    await this.getTahunAjaran()
+    await this.getSiswa()
+    await this.getPembayaran()
+    this.getData()
+  }
 };
 </script>

@@ -3,7 +3,7 @@
     <v-col cols="10" offset="1">
       <v-card class="my-3">
         <v-toolbar :color="$vuetify.theme.themes.dark.primary" dark >
-          transaksi
+          Transaksi
           <v-spacer></v-spacer>
           <v-text-field
             v-model="search"

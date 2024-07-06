@@ -1,4 +1,4 @@
-# Assessment Recap System
+# Sistem Informasi Sekolah
 
 ## Specification
 - NodeJS version 16.20.2
@@ -7,7 +7,7 @@
 ## Installation
 - Clone the repository:
   ```bash
-  git clone https://github.com/anggiirawan13/tugas-akhir-student.git
+  git clone https://github.com/anggiirawan13/sistem-informasi-sekolah.git
   ```
 
 ## Setup

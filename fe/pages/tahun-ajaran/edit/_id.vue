@@ -69,7 +69,7 @@ export default {
     return {
       breadcrumbs: [
         { text: "Tahun Ajaran", to: "/tahun-ajaran", disabled: false, exact: true },
-        { text: "Tambah", disabled: true },
+        { text: "Ubah", disabled: true },
       ],
       btnSaveDisable: false,
       message: "",

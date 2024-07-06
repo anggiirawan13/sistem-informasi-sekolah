@@ -36,6 +36,18 @@
                 :rules="rules.tahun_ajaran"
             ></v-select>
             <v-select
+                v-model="form.id_siswa"
+                :items="siswa"
+                label="Siswa"
+                :rules="rules.siswa"
+            ></v-select>
+            <v-select
+                v-model="form.id_transaksi"
+                :items="transaksi"
+                label="Transaksi"
+                :rules="rules.transaksi"
+            ></v-select>
+            <v-select
                 label="Status"
                 :items="status"
                 :rules="rules.status"
@@ -72,9 +84,10 @@ export default {
       btnSaveDisable: false,
       message: "",
       tahun_ajaran: [],
+      siswa: [],
+      transaksi: [],
       status: ["Berhasil", "Pending", "Gagal"],
       form: {
-        id: 0,
         id_transaksi: 0,
         id_siswa: 0,
         id_ta: 0,
@@ -88,6 +101,8 @@ export default {
         jml_bayar: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Jumlah Bayar" })],
         tgl_bayar: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Tanggal Bayar" })],
         tahun_ajaran: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Tahun Ajaran" })],
+        siswa: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Siswa" })],
+        transaksi: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Transaksi" })],
         status: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Status" })],
       },
     };
@@ -100,7 +115,6 @@ export default {
         this.btnSaveDisable = true;
 
         try {
-          this.form.id = this.id
           this.$axios.$post("/tagihan-spp", this.form)
               .then((res) => {
                 this.$router.push({
@@ -130,24 +144,7 @@ export default {
         }
       }
     },
-    getData() {
-      try {
-        this.$axios.$get(`/tagihan-spp/${this.id}`)
-            .then((res) => {
-              const {data} = res;
-
-              this.form.bulan = data.bulan
-              this.form.jml_bayar = data.jml_bayar
-              this.form.tgl_bayar = data.tgl_bayar
-              this.form.status = data.status
-              this.form.id_transaksi = data.id_transaksi
-              this.form.id_siswa = data.id_siswa
-              this.form.id_ta = data.id_ta
-            })
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    },getTahunAjaran() {
+    getTahunAjaran() {
       this.isLoading = true;
 
       this.$axios
@@ -169,10 +166,73 @@ export default {
             this.isLoading = false;
           });
     },
+    getSiswa() {
+      this.isLoading = true;
+
+      this.$axios
+          .$get(`/siswa?page=-1&limit=-1&search=`)
+          .then((res) => {
+            const { data } = res;
+
+            data.forEach(item => {
+              this.siswa.push({
+                text: item.nama_lengkap,
+                value: item.id,
+              })
+            })
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+          .finally(() => {
+            this.isLoading = false;
+          });
+    },
+    getTransaksi() {
+      this.isLoading = true;
+
+      this.$axios
+          .$get(`/transaksi?page=-1&limit=-1&search=`)
+          .then((res) => {
+            const { data } = res;
+
+            data.forEach(item => {
+              this.transaksi.push({
+                text: item.kode_transaksi,
+                value: item.id,
+              })
+            })
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+          .finally(() => {
+            this.isLoading = false;
+          });
+    },
+    getData() {
+      try {
+        this.$axios.$get(`/tagihan-spp/${this.id}`)
+            .then((res) => {
+              const { data } = res;
+              this.form.id_transaksi = data.id_transaksi
+                  this.form.id_siswa = data.id_siswa
+                  this.form.id_ta = data.id_ta
+                  this.form.bulan = data.bulan
+                  this.form.jml_bayar = data.jml_bayar
+                  this.form.tgl_bayar = data.tgl_bayar
+                  this.form.status = data.status
+            })
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    },
   },
   async mounted() {
-    await this.getTahunAjaran();
-    this.getData();
-  },
+    await this.getTahunAjaran()
+    await this.getSiswa()
+    await this.getTransaksi()
+    this.getData()
+  }
 };
 </script>

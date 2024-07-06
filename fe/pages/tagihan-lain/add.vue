@@ -3,7 +3,7 @@
     <!-- Input Fields -->
     <v-col cols="10" offset="1">
       <v-card class="mb-2">
-        <v-toolbar :color="$vuetify.theme.themes.dark.secondary" dark >TAMBAH TAGIHAN LAIN</v-toolbar>
+        <v-toolbar :color="$vuetify.theme.themes.dark.primary" dark >TAMBAH TAGIHAN LAIN</v-toolbar>
         <v-card-text>
           <v-alert v-if="message" color="red lighten-2" >{{ $t(message) }}</v-alert>
           <v-breadcrumbs :items="breadcrumbs" class="pa-0"></v-breadcrumbs>

@@ -3,7 +3,7 @@
     <!-- Input Fields -->
     <v-col cols="10" offset="1">
       <v-card class="mb-2">
-        <v-toolbar :color="$vuetify.theme.themes.dark.primary" dark >TAMBAH KOMPONEN</v-toolbar>
+        <v-toolbar :color="$vuetify.theme.themes.dark.primary" dark >UBAH KOMPONEN</v-toolbar>
         <v-card-text>
           <v-alert v-if="message" color="red lighten-2" >{{ $t(message) }}</v-alert>
           <v-breadcrumbs :items="breadcrumbs" class="pa-0"></v-breadcrumbs>
@@ -64,7 +64,7 @@
 <script>
 export default {
   head: {
-    title: "Tambah Komponen",
+    title: "Ubah Komponen",
   },
   asyncData({ params }) {
     return {
@@ -75,7 +75,7 @@ export default {
     return {
       breadcrumbs: [
         { text: "Komponen", to: "/komponen", disabled: false, exact: true },
-        { text: "Tambah", disabled: true },
+        { text: "Ubah", disabled: true },
       ],
       btnSaveDisable: false,
       message: "",
