@@ -124,8 +124,8 @@ export default {
             this.pembayaran.map((item) => (item.number = i++));
           }
         })
-        .catch((error) => {
-          console.log(error);
+        .catch((err) => {
+
         })
         .finally(() => {
           this.isLoading = false;
@@ -141,8 +141,8 @@ export default {
             title: this.itemDelete.nama_pembayaran,
           });
         })
-        .catch((error) => {
-          console.log(error);
+        .catch((err) => {
+
         })
         .finally(() => {
           this.cancelDelete();

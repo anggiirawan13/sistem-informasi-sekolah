@@ -3,7 +3,7 @@
     <!-- Input Fields -->
     <v-col cols="10" offset="1">
       <v-card class="mb-2">
-        <v-toolbar :color="$vuetify.theme.themes.dark.primary" dark >UBAH SISWA</v-toolbar>
+        <v-toolbar :color="$vuetify.theme.themes.dark.primary" dark >Ubah Siswa</v-toolbar>
         <v-card-text>
           <v-alert v-if="message" color="red lighten-2" >{{ $t(message) }}</v-alert>
           <v-breadcrumbs :items="breadcrumbs" class="pa-0"></v-breadcrumbs>
@@ -100,7 +100,16 @@ export default {
       btnSaveDisable: false,
       message: "",
       tahun_ajaran: [],
-      status: ["Active", "Inactive"],
+      status: [
+        {
+          text: "Active",
+          value: true
+        },
+        {
+          text: "Inactive",
+          value: false
+        },
+      ],
       form: {
         id: 0,
         nisn: "",
@@ -119,7 +128,6 @@ export default {
         alamat: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Alamat" })],
         nama_ortu: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Nama Orang Tua" })],
         telp: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Nomor Telepon" })],
-        foto: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Foto" })],
         tahun_ajaran: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Tahun Ajaran" })],
         status: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Status" })],
       },
@@ -145,7 +153,7 @@ export default {
             alamat: this.form.alamat,
             nama_ortu: this.form.nama_ortu,
             telp: this.form.telp,
-            status: this.form.status === "Active",
+            status: this.form.status,
           };
 
           formData.append('siswa', new Blob([JSON.stringify(siswa)], {
@@ -177,8 +185,8 @@ export default {
                   },
                 });
               })
-        } catch (error) {
-          console.error('Error:', error);
+        } catch (err) {
+
           this.message = "An error occurred while saving.";
         } finally {
           this.btnSaveDisable = false;
@@ -198,10 +206,10 @@ export default {
                   this.form.nama_ortu = data.nama_ortu
                   this.form.telp = data.telp
                   this.form.id_ta = data.id_ta
-                  this.form.status = data.status ? "Active" : "Inactive"
+                  this.form.status = data.status
             })
-      } catch (error) {
-        console.error('Error:', error);
+      } catch (err) {
+
       }
     },
     getTahunAjaran() {
@@ -219,8 +227,8 @@ export default {
               })
             })
           })
-          .catch((error) => {
-            console.log(error);
+          .catch((err) => {
+
           })
           .finally(() => {
             this.isLoading = false;

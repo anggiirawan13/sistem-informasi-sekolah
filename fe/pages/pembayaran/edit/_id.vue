@@ -3,7 +3,7 @@
     <!-- Input Fields -->
     <v-col cols="10" offset="1">
       <v-card class="mb-2">
-        <v-toolbar :color="$vuetify.theme.themes.dark.primary" dark >UBAH PEMBAYARAN</v-toolbar>
+        <v-toolbar :color="$vuetify.theme.themes.dark.primary" dark >Ubah Pembayaran</v-toolbar>
         <v-card-text>
           <v-alert v-if="message" color="red lighten-2" >{{ $t(message) }}</v-alert>
           <v-breadcrumbs :items="breadcrumbs" class="pa-0"></v-breadcrumbs>
@@ -22,10 +22,10 @@
                 :rules="rules.jumlah_bayar"
                 v-model="form.jumlah_bayar"
             />
-            <v-text-field
+            <v-select
                 name="metode_bayar"
                 label="Metode Bayar"
-                type="number"
+                :items="metode_bayar"
                 :rules="rules.metode_bayar"
                 v-model="form.metode_bayar"
             />
@@ -39,7 +39,7 @@
                 v-model="form.id_siswa"
                 :items="siswa"
                 label="Siswa"
-                :rules="rules.siswa"
+                :rules="rules.id_siswa"
             ></v-select>
           </v-form>
         </v-card-text>
@@ -73,13 +73,23 @@ export default {
       message: "",
       tahun_ajaran: [],
       siswa: [],
+      metode_bayar: [
+        {
+          text: "Transfer Bank",
+          value: 1
+        },
+        {
+          text: "Cash",
+          value: 2
+        }
+      ],
       form: {
         id: 0,
         id_ta: 0,
         id_siswa: 0,
         tgl_pembayaran: "",
         jumlah_bayar: "",
-        metode_bayar: "",
+        metode_bayar: 2,
       },
       rules: {
         tgl_pembayaran: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Tanggal Pembayaran" })],
@@ -120,8 +130,8 @@ export default {
                   },
                 });
               })
-        } catch (error) {
-          console.error('Error:', error);
+        } catch (err) {
+
           this.message = "An error occurred while saving.";
         } finally {
           this.btnSaveDisable = false;
@@ -132,7 +142,7 @@ export default {
       try {
         this.$axios.$get(`/pembayaran/${this.id}`)
             .then((res) => {
-              console.log(res)
+
               const {data} = res;
               this.form.tgl_pembayaran = data.tgl_pembayaran
               this.form.jumlah_bayar = data.jumlah_bayar
@@ -140,8 +150,8 @@ export default {
               this.form.id_ta = data.id_ta
               this.form.id_siswa = data.id_siswa
             })
-      } catch (error) {
-        console.error('Error:', error);
+      } catch (err) {
+
       }
     },
     getTahunAjaran() {
@@ -159,8 +169,8 @@ export default {
               })
             })
           })
-          .catch((error) => {
-            console.log(error);
+          .catch((err) => {
+
           })
           .finally(() => {
             this.isLoading = false;
@@ -181,8 +191,8 @@ export default {
               })
             })
           })
-          .catch((error) => {
-            console.log(error);
+          .catch((err) => {
+
           })
           .finally(() => {
             this.isLoading = false;
@@ -191,7 +201,7 @@ export default {
   },
   async mounted() {
     await this.getTahunAjaran();
-    await this.siswa()
+    await this.getSiswa()
     this.getData();
   },
 };

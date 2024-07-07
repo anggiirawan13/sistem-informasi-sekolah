@@ -94,7 +94,7 @@ export default {
       headers: [
         { text: "No.", value: "number", sortable: false },
         { text: "NISN", value: "nisn", sortable: false },
-        { text: "Nama Lengkap", value: "nama_lengkap", sortable: false },
+        { text: "Nama", value: "nama_lengkap", sortable: false },
         { text: "Status", value: "status", sortable: false },
         { text: "Actions", value: "actions", sortable: false },
       ],
@@ -127,8 +127,8 @@ export default {
             this.siswa.map((item) => (item.number = i++));
           }
         })
-        .catch((error) => {
-          console.log(error);
+        .catch((err) => {
+
         })
         .finally(() => {
           this.isLoading = false;
@@ -144,8 +144,8 @@ export default {
             title: this.itemDelete.nama_siswa,
           });
         })
-        .catch((error) => {
-          console.log(error);
+        .catch((err) => {
+
         })
         .finally(() => {
           this.cancelDelete();

@@ -3,7 +3,7 @@
     <!-- Input Fields -->
     <v-col cols="10" offset="1">
       <v-card class="mb-2">
-        <v-toolbar :color="$vuetify.theme.themes.dark.primary" dark >UBAH KOMPONEN</v-toolbar>
+        <v-toolbar :color="$vuetify.theme.themes.dark.primary" dark >Ubah Komponen</v-toolbar>
         <v-card-text>
           <v-alert v-if="message" color="red lighten-2" >{{ $t(message) }}</v-alert>
           <v-breadcrumbs :items="breadcrumbs" class="pa-0"></v-breadcrumbs>
@@ -129,8 +129,8 @@ export default {
                   },
                 });
               })
-        } catch (error) {
-          console.error('Error:', error);
+        } catch (err) {
+
           this.message = "An error occurred while saving.";
         } finally {
           this.btnSaveDisable = false;
@@ -150,8 +150,8 @@ export default {
               this.form.tgl_dibuat = data.tgl_dibuat
               this.form.id_ta = data.id_ta
             })
-      } catch (error) {
-        console.error('Error:', error);
+      } catch (err) {
+
       }
     },
     getTahunAjaran() {
@@ -169,8 +169,8 @@ export default {
               })
             })
           })
-          .catch((error) => {
-            console.log(error);
+          .catch((err) => {
+
           })
           .finally(() => {
             this.isLoading = false;

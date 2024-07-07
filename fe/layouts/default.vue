@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-navigation-drawer disable-resize-watcher fixed app :color="$vuetify.theme.themes.dark.primary" dark>
+    <v-navigation-drawer disable-resize-watcher v-model="sideDrawer" fixed app :color="$vuetify.theme.themes.dark.primary" dark>
       <v-list>
         <v-list-item
           v-for="(item, i) in sideMenu"
@@ -24,6 +24,14 @@
         <Nuxt />
       </v-container>
     </v-main>
+
+    <v-bottom-navigation horizontal height="10vh" fixed :color="$vuetify.theme.themes.dark.primary"  app>
+      <v-app-bar-nav-icon
+          @click.stop="sideDrawer = !sideDrawer"
+          :ripple="false"
+      />
+      <v-spacer />
+    </v-bottom-navigation>
   </v-app>
 </template>
 

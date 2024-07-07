@@ -31,7 +31,7 @@ public class SiswaController {
     }
 
     @PutMapping
-    public BaseResponse updateSiswa(@RequestPart("siswa") Siswa siswa, @RequestPart("foto") MultipartFile foto) {
+    public BaseResponse updateSiswa(@RequestPart("siswa") Siswa siswa, @RequestPart(value = "foto", required = false) MultipartFile foto) {
         return siswaServiceImpl.updateSiswa(siswa, foto);
     }
 

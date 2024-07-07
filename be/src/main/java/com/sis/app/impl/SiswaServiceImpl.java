@@ -60,17 +60,12 @@ public class SiswaServiceImpl implements SiswaService {
             }
 
             String fileName = file.getOriginalFilename();
-            String fullPath = "./src/main/java/com/be/assets/images/" + fileName;
+            String fullPath = "./src/main/java/com/sis/assets/images/" + fileName;
             byte[] bytes = file.getBytes();
             Path path = Paths.get(fullPath);
             Files.write(path, bytes);
 
-            String fullPathFoto = ServletUriComponentsBuilder.fromCurrentContextPath()
-                    .path("/image/download/")
-                    .path(fileName)
-                    .toUriString();
-
-            siswa.setFoto(fullPathFoto);
+            siswa.setFoto(fileName);
 
             return new BaseResponse(true, ResponseMessageConst.ADD_SUCCESS.toString(), siswaRepo.save(siswa));
         } catch (Exception e) {
@@ -85,22 +80,24 @@ public class SiswaServiceImpl implements SiswaService {
                 uploadDir.mkdirs();
             }
 
-            String fileName = file.getOriginalFilename();
-            String fullPath = "./src/main/java/com/be/assets/images/" + fileName;
-            byte[] bytes = file.getBytes();
-            Path path = Paths.get(fullPath);
-            Files.write(path, bytes);
+            if (file != null) {
+                String fileName = file.getOriginalFilename();
+                String fullPath = "./src/main/java/com/sis/assets/images/" + fileName;
+                byte[] bytes = file.getBytes();
+                Path path = Paths.get(fullPath);
+                Files.write(path, bytes);
 
-            String fullPathFoto = ServletUriComponentsBuilder.fromCurrentContextPath()
-                    .path("/image/download/")
-                    .path(fileName)
-                    .toUriString();
-
-            siswa.setFoto(fullPathFoto);
+                siswa.setFoto(fileName);
+            } else {
+                Siswa oldSiswa = siswaRepo.findById(siswa.getId()).orElse(null);
+                if (oldSiswa != null) {
+                    siswa.setFoto(oldSiswa.getFoto());
+                }
+            }
 
             return new BaseResponse(true, ResponseMessageConst.UPDATE_SUCCESS.toString(), siswaRepo.save(siswa));
         } catch (Exception e) {
-            return new BaseResponse(true, ResponseMessageConst.UPDATE_FAILED.toString(), siswaRepo.save(siswa));
+            return new BaseResponse(true, ResponseMessageConst.UPDATE_FAILED.toString(), null);
         }
     }
 

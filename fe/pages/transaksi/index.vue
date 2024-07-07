@@ -88,7 +88,20 @@ export default {
       alertType: "",
       dialogDelete: false,
       itemDelete: "",
-      status: ["Berhasil", "Pending", "Gagal"],
+      status: [
+        {
+          text: "Berhasil",
+          value: 1
+        },
+        {
+          text: "Pending",
+          value: 2
+        },
+        {
+          text: "Gagal",
+          value: 3
+        }
+      ],
       headers: [
         { text: "No.", value: "number", sortable: false },
         { text: "Kode Transaksi", value: "kode_transaksi", sortable: false },
@@ -124,8 +137,8 @@ export default {
             this.transaksi.map((item) => (item.number = i++));
           }
         })
-        .catch((error) => {
-          console.log(error);
+        .catch((err) => {
+
         })
         .finally(() => {
           this.isLoading = false;
@@ -141,8 +154,8 @@ export default {
             title: this.itemDelete.nama_transaksi,
           });
         })
-        .catch((error) => {
-          console.log(error);
+        .catch((err) => {
+
         })
         .finally(() => {
           this.cancelDelete();

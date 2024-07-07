@@ -88,7 +88,20 @@ export default {
       alertType: "",
       dialogDelete: false,
       itemDelete: "",
-      status: ["Berhasil", "Pending", "Gagal"],
+      status: [
+        {
+          text: "Berhasil",
+          value: 1
+        },
+        {
+          text: "Pending",
+          value: 2
+        },
+        {
+          text: "Gagal",
+          value: 3
+        }
+      ],
       headers: [
         { text: "No.", value: "number", sortable: false },
         { text: "Bulan", value: "bulan", sortable: false },
@@ -123,10 +136,10 @@ export default {
             i = isNaN(i) ? 1 : i;
             this.tagihan_spp.map((item) => (item.number = i++));
           }
-          console.log(res)
+
         })
-        .catch((error) => {
-          console.log(error);
+        .catch((err) => {
+
         })
         .finally(() => {
           this.isLoading = false;
@@ -142,8 +155,8 @@ export default {
             title: this.itemDelete.bulan,
           });
         })
-        .catch((error) => {
-          console.log(error);
+        .catch((err) => {
+
         })
         .finally(() => {
           this.cancelDelete();

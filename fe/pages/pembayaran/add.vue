@@ -3,7 +3,7 @@
     <!-- Input Fields -->
     <v-col cols="10" offset="1">
       <v-card class="mb-2">
-        <v-toolbar :color="$vuetify.theme.themes.dark.primary" dark >TAMBAH PEMBAYARAN</v-toolbar>
+        <v-toolbar :color="$vuetify.theme.themes.dark.primary" dark >Tambah Pembayaran</v-toolbar>
         <v-card-text>
           <v-alert v-if="message" color="red lighten-2" >{{ $t(message) }}</v-alert>
           <v-breadcrumbs :items="breadcrumbs" class="pa-0"></v-breadcrumbs>
@@ -22,10 +22,10 @@
                 :rules="rules.jumlah_bayar"
                 v-model="form.jumlah_bayar"
             />
-            <v-text-field
+            <v-select
                 name="metode_bayar"
                 label="Metode Bayar"
-                type="number"
+                :items="metode_bayar"
                 :rules="rules.metode_bayar"
                 v-model="form.metode_bayar"
             />
@@ -68,12 +68,22 @@ export default {
       message: "",
       tahun_ajaran: [],
       siswa: [],
+      metode_bayar: [
+        {
+          text: "Transfer Bank",
+          value: 1
+        },
+        {
+          text: "Cash",
+          value: 2
+        }
+      ],
       form: {
         id_ta: 0,
         id_siswa: 0,
         tgl_pembayaran: "",
         jumlah_bayar: "",
-        metode_bayar: "",
+        metode_bayar: 2,
       },
       rules: {
         tgl_pembayaran: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Tanggal Pembayaran" })],
@@ -113,8 +123,8 @@ export default {
                   },
                 });
               })
-        } catch (error) {
-          console.error('Error:', error);
+        } catch (err) {
+
           this.message = "An error occurred while saving.";
         } finally {
           this.btnSaveDisable = false;
@@ -136,8 +146,8 @@ export default {
               })
             })
           })
-          .catch((error) => {
-            console.log(error);
+          .catch((err) => {
+
           })
           .finally(() => {
             this.isLoading = false;
@@ -158,8 +168,8 @@ export default {
               })
             })
           })
-          .catch((error) => {
-            console.log(error);
+          .catch((err) => {
+
           })
           .finally(() => {
             this.isLoading = false;

@@ -3,7 +3,7 @@
     <!-- Input Fields -->
     <v-col cols="10" offset="1">
       <v-card class="mb-2">
-        <v-toolbar :color="$vuetify.theme.themes.dark.primary" dark >TAMBAH SISWA</v-toolbar>
+        <v-toolbar :color="$vuetify.theme.themes.dark.primary" dark >Tambah Siswa</v-toolbar>
         <v-card-text>
           <v-alert v-if="message" color="red lighten-2" >{{ $t(message) }}</v-alert>
           <v-breadcrumbs :items="breadcrumbs" class="pa-0"></v-breadcrumbs>
@@ -95,7 +95,16 @@ export default {
       btnSaveDisable: false,
       message: "",
       tahun_ajaran: [],
-      status: ["Active", "Inactive"],
+      status: [
+        {
+          text: "Active",
+          value: true
+        },
+        {
+          text: "Inactive",
+          value: false
+        },
+      ],
       form: {
         nisn: "",
         nama_lengkap: "",
@@ -138,7 +147,7 @@ export default {
             alamat: this.form.alamat,
             nama_ortu: this.form.nama_ortu,
             telp: this.form.telp,
-            status: this.form.status === "Active",
+            status: this.form.status,
           };
 
           formData.append('siswa', new Blob([JSON.stringify(siswa)], {
@@ -170,8 +179,8 @@ export default {
                   },
                 });
               })
-        } catch (error) {
-          console.error('Error:', error);
+        } catch (err) {
+
           this.message = "An error occurred while saving.";
         } finally {
           this.btnSaveDisable = false;
@@ -193,8 +202,8 @@ export default {
               })
             })
           })
-          .catch((error) => {
-            console.log(error);
+          .catch((err) => {
+
           })
           .finally(() => {
             this.isLoading = false;

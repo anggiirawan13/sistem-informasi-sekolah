@@ -40,7 +40,7 @@
                 <v-card>
                   <v-card-title
                     >Kamu yakin ingin menghapus data
-                    {{ itemDelete.tahun_ajaran }}?</v-card-title
+                    {{ itemDelete.periode }}?</v-card-title
                   >
                   <v-card-actions>
                     <v-spacer></v-spacer>
@@ -124,8 +124,8 @@ export default {
             this.tahun_ajaran.map((item) => (item.number = i++));
           }
         })
-        .catch((error) => {
-          console.log(error);
+        .catch((err) => {
+
         })
         .finally(() => {
           this.isLoading = false;
@@ -133,23 +133,22 @@ export default {
     },
     confirmDelete(id) {
       this.$axios
-        .$delete(`tahun-ajaran/${id}`)
+        .$delete(`/tahun-ajaran/${id}`)
         .then(async () => {
           await this.getTahunAjaran();
           this.alertType = "success";
           this.message = this.$t("DELETE_SUCCESS", {
-            title: this.itemDelete.tahun_ajaran,
+            title: this.itemDelete.periode,
           });
         })
-        .catch((error) => {
-          console.log(error);
+        .catch((err) => {
+
         })
         .finally(() => {
           this.cancelDelete();
         });
     },
     deleteItem(item) {
-      console.log(item)
       this.dialogDelete = true;
       this.itemDelete = item;
     },

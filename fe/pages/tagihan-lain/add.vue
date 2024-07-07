@@ -3,7 +3,7 @@
     <!-- Input Fields -->
     <v-col cols="10" offset="1">
       <v-card class="mb-2">
-        <v-toolbar :color="$vuetify.theme.themes.dark.primary" dark >TAMBAH TAGIHAN LAIN</v-toolbar>
+        <v-toolbar :color="$vuetify.theme.themes.dark.primary" dark >Tambah Tagihan Lain</v-toolbar>
         <v-card-text>
           <v-alert v-if="message" color="red lighten-2" >{{ $t(message) }}</v-alert>
           <v-breadcrumbs :items="breadcrumbs" class="pa-0"></v-breadcrumbs>
@@ -74,7 +74,20 @@ export default {
       siswa: [],
       transaksi: [],
       komponen: [],
-      status: ["Berhasil", "Pending", "Gagal"],
+      status: [
+        {
+          text: "Berhasil",
+          value: 1
+        },
+        {
+          text: "Pending",
+          value: 2
+        },
+        {
+          text: "Gagal",
+          value: 3
+        }
+      ],
       form: {
         id_komponen: 0,
         id_transaksi: 0,
@@ -122,8 +135,8 @@ export default {
                   },
                 });
               })
-        } catch (error) {
-          console.error('Error:', error);
+        } catch (err) {
+
           this.message = "An error occurred while saving.";
         } finally {
           this.btnSaveDisable = false;
@@ -145,8 +158,8 @@ export default {
               })
             })
           })
-          .catch((error) => {
-            console.log(error);
+          .catch((err) => {
+
           })
           .finally(() => {
             this.isLoading = false;
@@ -167,8 +180,8 @@ export default {
               })
             })
           })
-          .catch((error) => {
-            console.log(error);
+          .catch((err) => {
+
           })
           .finally(() => {
             this.isLoading = false;
@@ -189,8 +202,8 @@ export default {
               })
             })
           })
-          .catch((error) => {
-            console.log(error);
+          .catch((err) => {
+
           })
           .finally(() => {
             this.isLoading = false;
@@ -211,8 +224,8 @@ export default {
               })
             })
           })
-          .catch((error) => {
-            console.log(error);
+          .catch((err) => {
+
           })
           .finally(() => {
             this.isLoading = false;

@@ -64,8 +64,8 @@ export default {
 
         this.siswaList = siswares.data;
         this.mataKuliahList = mataKuliahres.data;
-      } catch (error) {
-        console.error('Error fetching data:', error);
+      } catch (err) {
+
       }
     },
     generatePDF() {

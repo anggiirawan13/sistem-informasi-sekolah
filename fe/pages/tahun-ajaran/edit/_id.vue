@@ -3,7 +3,7 @@
     <!-- Input Fields -->
     <v-col cols="10" offset="1">
       <v-card class="mb-2">
-        <v-toolbar :color="$vuetify.theme.themes.dark.primary" dark >UBAH TAHUN AJARAN</v-toolbar>
+        <v-toolbar :color="$vuetify.theme.themes.dark.primary" dark >Ubah Tahun Ajaran</v-toolbar>
         <v-card-text>
           <v-alert v-if="message" color="red lighten-2" >{{ $t(message) }}</v-alert>
           <v-breadcrumbs :items="breadcrumbs" class="pa-0"></v-breadcrumbs>
@@ -11,7 +11,7 @@
             <v-text-field
                 name="periode"
                 label="Periode"
-                type="text"
+                type="number"
                 :rules="rules.periode"
                 v-model="form.periode"
             />
@@ -75,13 +75,17 @@ export default {
       message: "",
       form: {
         id: 0,
-        periode: "",
+        periode: 0,
         tgl_mulai: "",
         tgl_akhir: "",
         kurikulum: "",
       },
       rules: {
-        periode: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Periode" })],
+        periode: [
+          (v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Periode" }),
+          (v) => /^[0-9]{4}$/.test(v) || 'Periode harus terdiri dari 4 digit',
+          (v) => (v >= 1900 && v <= new Date().getFullYear()) || 'Periode harus valid'
+        ],
         tgl_mulai: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Tanggal Mulai" })],
         tgl_akhir: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Tanggal Akhir" })],
         kurikulum: [(v) => !!v || this.$t("FIELD_IS_REQUIRED", { field: "Kurikulum" })],
@@ -104,7 +108,7 @@ export default {
                   params: {
                     type: "success",
                     message: res.messages,
-                    title: this.form.kurikulum,
+                    title: this.form.periode,
                   },
                 });
               })
@@ -114,12 +118,11 @@ export default {
                   params: {
                     type: "error",
                     message: err.messages,
-                    title: this.form.kurikulum,
+                    title: this.form.periode,
                   },
                 });
               })
-        } catch (error) {
-          console.error('Error:', error);
+        } catch (err) {
           this.message = "An error occurred while saving.";
         } finally {
           this.btnSaveDisable = false;
@@ -131,13 +134,14 @@ export default {
         this.$axios.$get(`/tahun-ajaran/${this.id}`)
             .then((res) => {
               const { data } = res;
+
               this.form.periode = data.periode
               this.form.tgl_mulai = data.tgl_mulai
               this.form.tgl_akhir = data.tgl_akhir
               this.form.kurikulum = data.kurikulum;
             })
-      } catch (error) {
-        console.error('Error:', error);
+      } catch (err) {
+
       }
     },
   },
