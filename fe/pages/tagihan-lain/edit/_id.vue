@@ -81,6 +81,7 @@ export default {
       komponen: [],
       status: ["Berhasil", "Pending", "Gagal"],
       form: {
+        id: 0,
         id_komponen: 0,
         id_transaksi: 0,
         id_siswa: 0,
@@ -106,6 +107,7 @@ export default {
         this.btnSaveDisable = true;
 
         try {
+          this.form.id = this.id
           this.$axios.$post("/tagihan-lain", this.form)
               .then((res) => {
                 this.$router.push({

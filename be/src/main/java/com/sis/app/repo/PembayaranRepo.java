@@ -1,7 +1,7 @@
 package com.sis.app.repo;
 
-import com.sis.app.entitity.Pembayaran;
+import com.sis.app.entitity.Kelas;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PembayaranRepo extends JpaRepository<Pembayaran, Integer> {
+public interface KelasRepo extends JpaRepository<Kelas, Integer> {
 }

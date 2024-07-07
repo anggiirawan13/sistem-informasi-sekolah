@@ -1,8 +1,8 @@
 package com.sis.app.impl;
 
-import com.sis.app.entitity.Komponen;
-import com.sis.app.repo.KomponenRepo;
-import com.sis.app.service.KomponenService;
+import com.sis.app.entitity.Jurusan;
+import com.sis.app.repo.JurusanRepo;
+import com.sis.app.service.JurusanService;
 import com.sis.app.web.BaseResponse;
 import com.sis.constanta.ResponseMessageConst;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,21 +15,21 @@ import java.util.HashMap;
 import java.util.List;
 
 @Service
-public class KomponenServiceImpl implements KomponenService {
+public class JurusanServiceImpl implements JurusanService {
 
     @Autowired
-    private KomponenRepo komponenRepo;
+    private JurusanRepo jurusanRepo;
 
     @Override
     public BaseResponse getAllKomponen(int page, int limit, String search) {
-        List<Komponen> komponen = new ArrayList<>();
+        List<Jurusan> jurusan = new ArrayList<>();
         HashMap<String, Object> addEntity = new HashMap<>();
         if (page < 0 || limit < 0) {
-            komponen = komponenRepo.findAll();
+            jurusan = jurusanRepo.findAll();
         } else {
             Pageable pageable = Pageable.ofSize(limit).withPage(page);
-            Page<Komponen> komponenPage = komponenRepo.findAll(pageable);
-            komponen = komponenPage.toList();
+            Page<Jurusan> komponenPage = jurusanRepo.findAll(pageable);
+            jurusan = komponenPage.toList();
 
             addEntity.put("totalPage", komponenPage.getTotalPages());
             addEntity.put("totalData", komponenPage.getTotalElements());
@@ -37,27 +37,27 @@ public class KomponenServiceImpl implements KomponenService {
             addEntity.put("number", komponenPage.getNumber());
         }
 
-        return new BaseResponse(true, ResponseMessageConst.GET_SUCCESS.toString(), komponen, addEntity);
+        return new BaseResponse(true, ResponseMessageConst.GET_SUCCESS.toString(), jurusan, addEntity);
     }
 
     @Override
     public BaseResponse getKomponenById(String id) {
-        return new BaseResponse(true, ResponseMessageConst.GET_SUCCESS.toString(), komponenRepo.findById(Integer.valueOf(id)).orElse(null));
+        return new BaseResponse(true, ResponseMessageConst.GET_SUCCESS.toString(), jurusanRepo.findById(Integer.valueOf(id)).orElse(null));
     }
 
     @Override
-    public BaseResponse saveKomponen(Komponen komponen) {
-        return new BaseResponse(true, ResponseMessageConst.ADD_SUCCESS.toString(), komponenRepo.save(komponen));
+    public BaseResponse saveKomponen(Jurusan jurusan) {
+        return new BaseResponse(true, ResponseMessageConst.ADD_SUCCESS.toString(), jurusanRepo.save(jurusan));
     }
 
     @Override
-    public BaseResponse updateKomponen(Komponen komponen) {
-        return new BaseResponse(true, ResponseMessageConst.UPDATE_SUCCESS.toString(), komponenRepo.save(komponen));
+    public BaseResponse updateKomponen(Jurusan jurusan) {
+        return new BaseResponse(true, ResponseMessageConst.UPDATE_SUCCESS.toString(), jurusanRepo.save(jurusan));
     }
 
     @Override
     public BaseResponse deleteKomponen(String id) {
-        komponenRepo.deleteById(Integer.valueOf(id));
+        jurusanRepo.deleteById(Integer.valueOf(id));
         return new BaseResponse(true, ResponseMessageConst.DELETE_SUCCESS.toString(), null);
     }
 }
