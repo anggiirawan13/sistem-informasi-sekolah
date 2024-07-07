@@ -1,8 +1,8 @@
 package com.sis.app.impl;
 
-import com.sis.app.entitity.Kelas;
-import com.sis.app.repo.KelasRepo;
-import com.sis.app.service.KelasService;
+import com.sis.app.entitity.Pembayaran;
+import com.sis.app.repo.PembayaranRepo;
+import com.sis.app.service.PembayaranService;
 import com.sis.app.web.BaseResponse;
 import com.sis.constanta.ResponseMessageConst;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,21 +15,21 @@ import java.util.HashMap;
 import java.util.List;
 
 @Service
-public class KelasServiceImpl implements KelasService {
+public class PembayaranServiceImpl implements PembayaranService {
 
     @Autowired
-    private KelasRepo kelasRepo;
+    private PembayaranRepo pembayaranRepo;
 
     @Override
     public BaseResponse getAllPembayaran(int page, int limit, String search) {
-        List<Kelas> kelas = new ArrayList<>();
+        List<Pembayaran> pembayaran = new ArrayList<>();
         HashMap<String, Object> addEntity = new HashMap<>();
         if (page < 0 || limit < 0) {
-            kelas = kelasRepo.findAll();
+            pembayaran = pembayaranRepo.findAll();
         } else {
             Pageable pageable = Pageable.ofSize(limit).withPage(page);
-            Page<Kelas> pembayaranPage = kelasRepo.findAll(pageable);
-            kelas = pembayaranPage.toList();
+            Page<Pembayaran> pembayaranPage = pembayaranRepo.findAll(pageable);
+            pembayaran = pembayaranPage.toList();
 
             addEntity.put("totalPage", pembayaranPage.getTotalPages());
             addEntity.put("totalData", pembayaranPage.getTotalElements());
@@ -37,27 +37,27 @@ public class KelasServiceImpl implements KelasService {
             addEntity.put("number", pembayaranPage.getNumber());
         }
 
-        return new BaseResponse(true, ResponseMessageConst.GET_SUCCESS.toString(), kelas, addEntity);
+        return new BaseResponse(true, ResponseMessageConst.GET_SUCCESS.toString(), pembayaran, addEntity);
     }
 
     @Override
     public BaseResponse getPembayaranById(String id) {
-        return new BaseResponse(true, ResponseMessageConst.GET_SUCCESS.toString(), kelasRepo.findById(Integer.valueOf(id)).orElse(null));
+        return new BaseResponse(true, ResponseMessageConst.GET_SUCCESS.toString(), pembayaranRepo.findById(Integer.valueOf(id)).orElse(null));
     }
 
     @Override
-    public BaseResponse savePembayaran(Kelas kelas) {
-        return new BaseResponse(true, ResponseMessageConst.ADD_SUCCESS.toString(), kelasRepo.save(kelas));
+    public BaseResponse savePembayaran(Pembayaran pembayaran) {
+        return new BaseResponse(true, ResponseMessageConst.ADD_SUCCESS.toString(), pembayaranRepo.save(pembayaran));
     }
 
     @Override
-    public BaseResponse updatePembayaran(Kelas kelas) {
-        return new BaseResponse(true, ResponseMessageConst.UPDATE_SUCCESS.toString(), kelasRepo.save(kelas));
+    public BaseResponse updatePembayaran(Pembayaran pembayaran) {
+        return new BaseResponse(true, ResponseMessageConst.UPDATE_SUCCESS.toString(), pembayaranRepo.save(pembayaran));
     }
 
     @Override
     public BaseResponse deletePembayaran(String id) {
-        kelasRepo.deleteById(Integer.valueOf(id));
+        pembayaranRepo.deleteById(Integer.valueOf(id));
         return new BaseResponse(true, ResponseMessageConst.DELETE_SUCCESS.toString(), null);
     }
 }
